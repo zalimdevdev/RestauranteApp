@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+
+
+  <main class="dashboard">
+  
+  <a asp-controller="Mesas" class="card-link">
+    <div class="card">
+
+      <span class="icon">🪑</span>
+      <h2>Mesas</h2>
+      
+    </div>
+  </a>
+
+
+ <a asp-controller="CategoriaMenus" class="card-link">
+    <div class="card">
+      <span class="icon">📖</span>
+      <h2>Menú</h2>
+    </div>
+</a>
+
+    <div class="card">
+      <span class="icon">🛎️</span>
+      <h2>Pedidos</h2>
+    </div>
+    <div class="card">
+      <span class="icon">📦</span>
+      <h2>Inventario</h2>
+    </div>
+    <div class="card">
+      <span class="icon">👨‍🍳</span>
+      <h2>Empleados</h2>
+    </div>
+    <div class="card">
+      <span class="icon">💰</span>
+      <h2>Ventas</h2>
+    </div>
+    <div class="card">
+      <span class="icon">📊</span>
+      <h2>Reportes</h2>
+    </div>
+    <div class="card">
+      <span class="icon">⚙️</span>
+      <h2>Configuración</h2>
+    </div>
+  </main>

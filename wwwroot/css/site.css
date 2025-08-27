@@ -1,0 +1,212 @@
+
+/*
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+*/
+
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f5f5fa;
+  color: #333;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 15px 30px;
+  background: #f5f5fa;
+  box-shadow: inset 3px 3px 6px #e0e0e5,
+              inset -3px -3px 6px #ffffff;
+}
+
+.search {
+  flex: 1;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 25px;
+  background: #f5f5fa;
+  box-shadow: inset 2px 2px 4px #e0e0e5,
+              inset -2px -2px 4px #ffffff;
+  font-size: 0.9rem;
+}
+
+.search:focus {
+  outline: none;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-info img {
+  border-radius: 50%;
+  box-shadow: 3px 3px 6px #e0e0e5,
+              -3px -3px 6px #ffffff;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  padding: 30px;
+}
+
+.card {
+  background: #f5f5fa;
+  border-radius: 20px;
+  padding: 25px;
+  text-align: center;
+  transition: 0.3s;
+  box-shadow: 5px 5px 10px #e0e0e5,
+              -5px -5px 10px #ffffff;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.status-circle {
+  width: 70px;
+  height: 70px;
+  margin: 15px auto 0;
+  border-radius: 50%;
+  background: conic-gradient(#7a5cff calc(var(--progress) * 1%), #ddd 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #555;
+}
+
+.status-circle::after {
+  content: attr(data-progress) "%";
+}
+
+.status-circle[data-progress] {
+  --progress: attr(data-progress);
+}
+
+
+/* Botones */
+.btn {
+  padding: 10px 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #555;
+  background: #f5f5fa;
+  font-weight: bold;
+  box-shadow: 5px 5px 10px #e0e0e5, -5px -5px 10px #ffffff;
+  transition: all 0.2s ease-in-out;
+}
+.btn:hover {
+  box-shadow: inset 5px 5px 10px #e0e0e5, inset -5px -5px 10px #ffffff;
+}
+
+.btn-small {
+  padding: 6px 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  margin: 0 3px;
+  background: #f5f5fa;
+  box-shadow: 3px 3px 6px #e0e0e5, -3px -3px 6px #ffffff;
+}
+.btn-small:hover {
+  box-shadow: inset 3px 3px 6px #e0e0e5, inset -3px -3px 6px #ffffff;
+}
+
+/* Contenido principal */
+.content {
+  padding: 40px;
+}
+
+/* Tabla neomorfismo */
+.neo-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #f5f5fa;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 8px 8px 16px #e0e0e5, -8px -8px 16px #ffffff;
+}
+.neo-table th, .neo-table td {
+  padding: 15px;
+  text-align: left;
+  color: #4f4e5b;
+}
+.neo-table thead {
+  background: #f0f0f0;
+  font-weight: bold;
+}
+
+/* Formulario */
+.neo-form {
+  max-width: 400px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: #f5f5fa;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 8px 8px 16px #e0e0e5, -8px -8px 16px #ffffff;
+}
+.neo-form input {
+  width: auto;
+
+  border-radius: 62px;
+  background: linear-gradient(145deg, #f1f1f1, #ffffff);
+
+}
+
+
+
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
