@@ -11,6 +11,10 @@ public class CategoriaMenu
     [StringLength(50)]
     public string NombreCategoria { get; set; }
 
+
+    [StringLength(70)]
+    public string DescripcionCategoria { get; set; }
+
     // Propiedad de navegación
     public virtual ICollection<ItemMenu> ItemsMenu { get; set; } = new List<ItemMenu>();
 }

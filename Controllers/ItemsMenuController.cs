@@ -56,7 +56,7 @@ namespace RestauranteApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ItemId,NombreItem,Descripcion,Precio,CategoriaId")] ItemMenu itemMenu)
+        public async Task<IActionResult> Create([Bind("ItemId,NombreItem,Descripcion,Precio,CategoriaId,Estado")] ItemMenu itemMenu)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace RestauranteApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ItemId,NombreItem,Descripcion,Precio,CategoriaId")] ItemMenu itemMenu)
+        public async Task<IActionResult> Edit(int id, [Bind("ItemId,NombreItem,Descripcion,Precio,CategoriaId,Estado")] ItemMenu itemMenu)
         {
             if (id != itemMenu.ItemId)
             {

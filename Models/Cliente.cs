@@ -19,6 +19,13 @@ public class Cliente
     [StringLength(15)]
     public string? Telefono { get; set; }
 
+    [StringLength(15)]
+    public string? Cedula { get; set; }
+
+
+    [StringLength(15)]
+    public string? Direccion { get; set; }    
+
 
     public DateTime FechaRegistro { get; set; } = DateTime.Now;
 

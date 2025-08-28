@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RestauranteApp.Models;
@@ -11,9 +12,11 @@ using RestauranteApp.Models;
 namespace RestauranteApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250828002932_Migracionfase1-2")]
+    partial class Migracionfase12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -111,16 +114,6 @@ namespace RestauranteApp.Migrations
                     b.HasKey("DatosNegocioId");
 
                     b.ToTable("DatosNegocios");
-
-                    b.HasData(
-                        new
-                        {
-                            DatosNegocioId = 1,
-                            DireccionNegocio = "Tu Dirección",
-                            Nombre = "Nombre de tu Restaurante",
-                            Ruc = "Tu RUC",
-                            Telefono = "Tu Teléfono"
-                        });
                 });
 
             modelBuilder.Entity("RestauranteApp.Models.DetallePedido", b =>

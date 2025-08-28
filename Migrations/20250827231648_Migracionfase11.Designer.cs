@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RestauranteApp.Models;
@@ -11,9 +12,11 @@ using RestauranteApp.Models;
 namespace RestauranteApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250827231648_Migracionfase11")]
+    partial class Migracionfase11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,46 +84,6 @@ namespace RestauranteApp.Migrations
                     b.HasKey("ClienteId");
 
                     b.ToTable("Clientes");
-                });
-
-            modelBuilder.Entity("RestauranteApp.Models.DatosNegocio", b =>
-                {
-                    b.Property<int>("DatosNegocioId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DatosNegocioId"));
-
-                    b.Property<string>("DireccionNegocio")
-                        .HasMaxLength(15)
-                        .HasColumnType("character varying(15)");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("Ruc")
-                        .HasMaxLength(15)
-                        .HasColumnType("character varying(15)");
-
-                    b.Property<string>("Telefono")
-                        .HasMaxLength(15)
-                        .HasColumnType("character varying(15)");
-
-                    b.HasKey("DatosNegocioId");
-
-                    b.ToTable("DatosNegocios");
-
-                    b.HasData(
-                        new
-                        {
-                            DatosNegocioId = 1,
-                            DireccionNegocio = "Tu Dirección",
-                            Nombre = "Nombre de tu Restaurante",
-                            Ruc = "Tu RUC",
-                            Telefono = "Tu Teléfono"
-                        });
                 });
 
             modelBuilder.Entity("RestauranteApp.Models.DetallePedido", b =>

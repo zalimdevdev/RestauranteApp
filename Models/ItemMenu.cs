@@ -18,6 +18,10 @@ public class ItemMenu
     [Column(TypeName = "decimal(18, 2)")]
     public decimal Precio { get; set; }
 
+    [Required]
+    [StringLength(20)]
+    public string Estado { get; set; }
+
     public int CategoriaId { get; set; }
 
     // Propiedades de navegación

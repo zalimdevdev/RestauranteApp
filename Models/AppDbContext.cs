@@ -1,3 +1,6 @@
+ 
+  
+
 using Microsoft.EntityFrameworkCore;
 
 namespace RestauranteApp.Models;
@@ -19,5 +22,27 @@ public class AppDbContext : DbContext
     public DbSet<Gasto> Gastos { get; set; }
     public DbSet<Proveedor> Proveedores { get; set; }
     public DbSet<Ingrediente> Ingredientes { get; set; }
+    
+    public DbSet<DatosNegocio> DatosNegocios { get; set; }
+
+
+
+        // --- AGREGAR ESTE MÉTODO ---
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        // Sembrar datos para la tabla DatosNegocio
+        modelBuilder.Entity<DatosNegocio>().HasData(
+            new DatosNegocio
+            {
+                DatosNegocioId = 1, // Debes especificar el ID manualmente
+                Nombre = "Nombre de tu Restaurante",
+                Telefono = "Tu Teléfono",
+                Ruc = "Tu RUC",
+                DireccionNegocio = "Tu Dirección"
+            }
+        );
+    }
 
 }

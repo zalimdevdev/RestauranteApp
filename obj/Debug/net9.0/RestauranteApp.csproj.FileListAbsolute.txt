@@ -635,3 +635,4 @@ D:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\bin\Deb
 D:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Debug\net9.0\compressed\3wagz9wowh-614d5fsc6n.gz
 D:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Debug\net9.0\compressed\5ejryotbf6-614d5fsc6n.gz
 D:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Debug\net9.0\compressed\z6spo0zthg-1a0ahq03he.gz
+D:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Debug\net9.0\RestauranteApp.sourcelink.json

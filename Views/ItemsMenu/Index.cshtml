@@ -24,6 +24,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.CategoriaMenu)
             </th>
+
+
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+
+
             <th></th>
         </tr>
     </thead>
@@ -42,6 +49,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CategoriaMenu.NombreCategoria)
             </td>
+
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ItemId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ItemId">Details</a> |

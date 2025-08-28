@@ -9,22 +9,22 @@ using RestauranteApp.Models;
 
 namespace RestauranteApp.Controllers
 {
-    public class CategoriaMenusController : Controller
+    public class DatosNegociosController : Controller
     {
         private readonly AppDbContext _context;
 
-        public CategoriaMenusController(AppDbContext context)
+        public DatosNegociosController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: CategoriaMenus
+        // GET: DatosNegocios
         public async Task<IActionResult> Index()
         {
-            return View(await _context.CategoriasMenu.ToListAsync());
+            return View(await _context.DatosNegocios.ToListAsync());
         }
 
-        // GET: CategoriaMenus/Details/5
+        // GET: DatosNegocios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace RestauranteApp.Controllers
                 return NotFound();
             }
 
-            var categoriaMenu = await _context.CategoriasMenu
-                .FirstOrDefaultAsync(m => m.CategoriaId == id);
-            if (categoriaMenu == null)
+            var datosNegocio = await _context.DatosNegocios
+                .FirstOrDefaultAsync(m => m.DatosNegocioId == id);
+            if (datosNegocio == null)
             {
                 return NotFound();
             }
 
-            return View(categoriaMenu);
+            return View(datosNegocio);
         }
 
-        // GET: CategoriaMenus/Create
+        // GET: DatosNegocios/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: CategoriaMenus/Create
+        // POST: DatosNegocios/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoriaId,NombreCategoria,DescripcionCategoria")] CategoriaMenu categoriaMenu)
+        public async Task<IActionResult> Create([Bind("DatosNegocioId,Nombre,Telefono,Ruc,DireccionNegocio")] DatosNegocio datosNegocio)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(categoriaMenu);
+                _context.Add(datosNegocio);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(categoriaMenu);
+            return View(datosNegocio);
         }
 
-        // GET: CategoriaMenus/Edit/5
+        // GET: DatosNegocios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace RestauranteApp.Controllers
                 return NotFound();
             }
 
-            var categoriaMenu = await _context.CategoriasMenu.FindAsync(id);
-            if (categoriaMenu == null)
+            var datosNegocio = await _context.DatosNegocios.FindAsync(id);
+            if (datosNegocio == null)
             {
                 return NotFound();
             }
-            return View(categoriaMenu);
+            return View(datosNegocio);
         }
 
-        // POST: CategoriaMenus/Edit/5
+        // POST: DatosNegocios/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoriaId,NombreCategoria,DescripcionCategoria")] CategoriaMenu categoriaMenu)
+        public async Task<IActionResult> Edit(int id, [Bind("DatosNegocioId,Nombre,Telefono,Ruc,DireccionNegocio")] DatosNegocio datosNegocio)
         {
-            if (id != categoriaMenu.CategoriaId)
+            if (id != datosNegocio.DatosNegocioId)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace RestauranteApp.Controllers
             {
                 try
                 {
-                    _context.Update(categoriaMenu);
+                    _context.Update(datosNegocio);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoriaMenuExists(categoriaMenu.CategoriaId))
+                    if (!DatosNegocioExists(datosNegocio.DatosNegocioId))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace RestauranteApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(categoriaMenu);
+            return View(datosNegocio);
         }
 
-        // GET: CategoriaMenus/Delete/5
+        // GET: DatosNegocios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,34 +123,34 @@ namespace RestauranteApp.Controllers
                 return NotFound();
             }
 
-            var categoriaMenu = await _context.CategoriasMenu
-                .FirstOrDefaultAsync(m => m.CategoriaId == id);
-            if (categoriaMenu == null)
+            var datosNegocio = await _context.DatosNegocios
+                .FirstOrDefaultAsync(m => m.DatosNegocioId == id);
+            if (datosNegocio == null)
             {
                 return NotFound();
             }
 
-            return View(categoriaMenu);
+            return View(datosNegocio);
         }
 
-        // POST: CategoriaMenus/Delete/5
+        // POST: DatosNegocios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var categoriaMenu = await _context.CategoriasMenu.FindAsync(id);
-            if (categoriaMenu != null)
+            var datosNegocio = await _context.DatosNegocios.FindAsync(id);
+            if (datosNegocio != null)
             {
-                _context.CategoriasMenu.Remove(categoriaMenu);
+                _context.DatosNegocios.Remove(datosNegocio);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoriaMenuExists(int id)
+        private bool DatosNegocioExists(int id)
         {
-            return _context.CategoriasMenu.Any(e => e.CategoriaId == id);
+            return _context.DatosNegocios.Any(e => e.DatosNegocioId == id);
         }
     }
 }
