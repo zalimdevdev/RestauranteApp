@@ -87,7 +87,7 @@ body {
   padding: 30px;
 }
 
-.card {
+.card-neo {
   background: #f5f5fa;
   border-radius: 20px;
   padding: 25px;
@@ -97,7 +97,7 @@ body {
               -5px -5px 10px #ffffff;
 }
 
-.card:hover {
+.card-neo:hover {
   transform: translateY(-5px);
 }
 

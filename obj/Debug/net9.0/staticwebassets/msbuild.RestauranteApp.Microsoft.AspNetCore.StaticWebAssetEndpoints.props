@@ -1,16 +1,16 @@
 ﻿<Project>
   <ItemGroup>
-    <StaticWebAssetEndpoint Include="_content/RestauranteApp/css/site.1a0ahq03he.css">
+    <StaticWebAssetEndpoint Include="_content/RestauranteApp/css/site.2o4ayd71yp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"1a0ahq03he"},{"Name":"integrity","Value":"sha256-6TgjOS1eCFY48yFhQtcW01dr8uHc3g3Ef3YwxC30LqI="},{"Name":"label","Value":"_content/RestauranteApp/css/site.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"3947"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00226TgjOS1eCFY48yFhQtcW01dr8uHc3g3Ef3YwxC30LqI=\u0022"},{"Name":"Last-Modified","Value":"Fri, 22 Aug 2025 23:24:18 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"2o4ayd71yp"},{"Name":"integrity","Value":"sha256-3mMpN3jSQ9O32rqy9pQIkkY9bW/thaXTp/95q6HRtTc="},{"Name":"label","Value":"_content/RestauranteApp/css/site.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"3955"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00223mMpN3jSQ9O32rqy9pQIkkY9bW/thaXTp/95q6HRtTc=\u0022"},{"Name":"Last-Modified","Value":"Fri, 29 Aug 2025 21:48:33 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/RestauranteApp/css/site.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-6TgjOS1eCFY48yFhQtcW01dr8uHc3g3Ef3YwxC30LqI="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"3947"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00226TgjOS1eCFY48yFhQtcW01dr8uHc3g3Ef3YwxC30LqI=\u0022"},{"Name":"Last-Modified","Value":"Fri, 22 Aug 2025 23:24:18 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-3mMpN3jSQ9O32rqy9pQIkkY9bW/thaXTp/95q6HRtTc="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"3955"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00223mMpN3jSQ9O32rqy9pQIkkY9bW/thaXTp/95q6HRtTc=\u0022"},{"Name":"Last-Modified","Value":"Fri, 29 Aug 2025 21:48:33 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/RestauranteApp/favicon.61n19gt1b8.ico">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</AssetFile>

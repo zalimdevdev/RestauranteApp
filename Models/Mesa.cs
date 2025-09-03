@@ -18,4 +18,5 @@ public class Mesa
     // Propiedades de navegación
     public virtual ICollection<Reservacion> Reservaciones { get; set; } = new List<Reservacion>();
     public virtual ICollection<Pedido> Pedidos { get; set; } = new List<Pedido>();
+    public virtual ICollection<Mesa> Mesas { get; set; } = new List<Mesa>();
 }

@@ -17,9 +17,14 @@ public class Pedido
     [StringLength(25)]
     public string EstadoPedido { get; set; } // "En preparación", "Servido", "Pagado"
 
+
+ 
+ 
+ 
     // Propiedades de navegación
     [ForeignKey("MesaId")]
     public virtual Mesa? Mesa { get; set; }
+
 
     [ForeignKey("EmpleadoId")]
     public virtual Empleado? Empleado { get; set; }

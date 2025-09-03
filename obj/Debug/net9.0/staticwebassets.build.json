@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "r2WqLTbgZ6nLNEixV2qzMMSH0zIoai+TzmQC0RkvGPw=",
+  "Hash": "ZeBz7U9YfVz60P2Ig5GiOMLJLzz78exeXOxGMWefxOk=",
   "Source": "RestauranteApp",
   "BasePath": "_content/RestauranteApp",
   "Mode": "Default",
@@ -1298,12 +1298,12 @@
       "OriginalItemSpec": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\favicon.ico"
     },
     {
-      "Identity": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\obj\\Debug\\net9.0\\compressed\\z6spo0zthg-1a0ahq03he.gz",
+      "Identity": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\obj\\Debug\\net9.0\\compressed\\z6spo0zthg-2o4ayd71yp.gz",
       "SourceId": "RestauranteApp",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/RestauranteApp",
-      "RelativePath": "css/site#[.{fingerprint=1a0ahq03he}]?.css.gz",
+      "RelativePath": "css/site#[.{fingerprint=2o4ayd71yp}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -1312,8 +1312,8 @@
       "RelatedAsset": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\css\\site.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "jvulkicvea",
-      "Integrity": "jyvE+jTCGqxlnaxgqIarTHbqBxEGpmA16saaz3hwhvs=",
+      "Fingerprint": "y043jjzfa3",
+      "Integrity": "3rlBzgDbDJmB2UlEzEMNtRIc/28bgDISn9Wcxn2EvYM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\css\\site.css"
@@ -1417,8 +1417,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "1a0ahq03he",
-      "Integrity": "6TgjOS1eCFY48yFhQtcW01dr8uHc3g3Ef3YwxC30LqI=",
+      "Fingerprint": "2o4ayd71yp",
+      "Integrity": "3mMpN3jSQ9O32rqy9pQIkkY9bW/thaXTp/95q6HRtTc=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -2728,13 +2728,13 @@
   ],
   "Endpoints": [
     {
-      "Route": "css/site.1a0ahq03he.css",
-      "AssetFile": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\obj\\Debug\\net9.0\\compressed\\z6spo0zthg-1a0ahq03he.gz",
+      "Route": "css/site.2o4ayd71yp.css",
+      "AssetFile": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\obj\\Debug\\net9.0\\compressed\\z6spo0zthg-2o4ayd71yp.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000795544948"
+          "Quality": "0.000792393027"
         }
       ],
       "ResponseHeaders": [
@@ -2744,15 +2744,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1256"
+          "Value": "1261"
         },
         {
           "Name": "ETag",
-          "Value": "\"jyvE+jTCGqxlnaxgqIarTHbqBxEGpmA16saaz3hwhvs=\""
+          "Value": "\"3rlBzgDbDJmB2UlEzEMNtRIc/28bgDISn9Wcxn2EvYM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 23:24:18 GMT"
+          "Value": "Fri, 29 Aug 2025 21:48:33 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2772,13 +2772,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"6TgjOS1eCFY48yFhQtcW01dr8uHc3g3Ef3YwxC30LqI=\""
+          "Value": "W/\"3mMpN3jSQ9O32rqy9pQIkkY9bW/thaXTp/95q6HRtTc=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "1a0ahq03he"
+          "Value": "2o4ayd71yp"
         },
         {
           "Name": "label",
@@ -2786,12 +2786,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-6TgjOS1eCFY48yFhQtcW01dr8uHc3g3Ef3YwxC30LqI="
+          "Value": "sha256-3mMpN3jSQ9O32rqy9pQIkkY9bW/thaXTp/95q6HRtTc="
         }
       ]
     },
     {
-      "Route": "css/site.1a0ahq03he.css",
+      "Route": "css/site.2o4ayd71yp.css",
       "AssetFile": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -2801,7 +2801,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3947"
+          "Value": "3955"
         },
         {
           "Name": "Content-Type",
@@ -2809,11 +2809,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"6TgjOS1eCFY48yFhQtcW01dr8uHc3g3Ef3YwxC30LqI=\""
+          "Value": "\"3mMpN3jSQ9O32rqy9pQIkkY9bW/thaXTp/95q6HRtTc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 23:24:18 GMT"
+          "Value": "Fri, 29 Aug 2025 21:48:33 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2823,7 +2823,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "1a0ahq03he"
+          "Value": "2o4ayd71yp"
         },
         {
           "Name": "label",
@@ -2831,13 +2831,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-6TgjOS1eCFY48yFhQtcW01dr8uHc3g3Ef3YwxC30LqI="
+          "Value": "sha256-3mMpN3jSQ9O32rqy9pQIkkY9bW/thaXTp/95q6HRtTc="
         }
       ]
     },
     {
-      "Route": "css/site.1a0ahq03he.css.gz",
-      "AssetFile": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\obj\\Debug\\net9.0\\compressed\\z6spo0zthg-1a0ahq03he.gz",
+      "Route": "css/site.2o4ayd71yp.css.gz",
+      "AssetFile": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\obj\\Debug\\net9.0\\compressed\\z6spo0zthg-2o4ayd71yp.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2846,7 +2846,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1256"
+          "Value": "1261"
         },
         {
           "Name": "Content-Type",
@@ -2854,11 +2854,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"jyvE+jTCGqxlnaxgqIarTHbqBxEGpmA16saaz3hwhvs=\""
+          "Value": "\"3rlBzgDbDJmB2UlEzEMNtRIc/28bgDISn9Wcxn2EvYM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 23:24:18 GMT"
+          "Value": "Fri, 29 Aug 2025 21:48:33 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2876,7 +2876,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "1a0ahq03he"
+          "Value": "2o4ayd71yp"
         },
         {
           "Name": "label",
@@ -2884,18 +2884,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-jyvE+jTCGqxlnaxgqIarTHbqBxEGpmA16saaz3hwhvs="
+          "Value": "sha256-3rlBzgDbDJmB2UlEzEMNtRIc/28bgDISn9Wcxn2EvYM="
         }
       ]
     },
     {
       "Route": "css/site.css",
-      "AssetFile": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\obj\\Debug\\net9.0\\compressed\\z6spo0zthg-1a0ahq03he.gz",
+      "AssetFile": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\obj\\Debug\\net9.0\\compressed\\z6spo0zthg-2o4ayd71yp.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000795544948"
+          "Quality": "0.000792393027"
         }
       ],
       "ResponseHeaders": [
@@ -2905,15 +2905,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1256"
+          "Value": "1261"
         },
         {
           "Name": "ETag",
-          "Value": "\"jyvE+jTCGqxlnaxgqIarTHbqBxEGpmA16saaz3hwhvs=\""
+          "Value": "\"3rlBzgDbDJmB2UlEzEMNtRIc/28bgDISn9Wcxn2EvYM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 23:24:18 GMT"
+          "Value": "Fri, 29 Aug 2025 21:48:33 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2933,13 +2933,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"6TgjOS1eCFY48yFhQtcW01dr8uHc3g3Ef3YwxC30LqI=\""
+          "Value": "W/\"3mMpN3jSQ9O32rqy9pQIkkY9bW/thaXTp/95q6HRtTc=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-6TgjOS1eCFY48yFhQtcW01dr8uHc3g3Ef3YwxC30LqI="
+          "Value": "sha256-3mMpN3jSQ9O32rqy9pQIkkY9bW/thaXTp/95q6HRtTc="
         }
       ]
     },
@@ -2954,7 +2954,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3947"
+          "Value": "3955"
         },
         {
           "Name": "Content-Type",
@@ -2962,11 +2962,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"6TgjOS1eCFY48yFhQtcW01dr8uHc3g3Ef3YwxC30LqI=\""
+          "Value": "\"3mMpN3jSQ9O32rqy9pQIkkY9bW/thaXTp/95q6HRtTc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 23:24:18 GMT"
+          "Value": "Fri, 29 Aug 2025 21:48:33 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2976,13 +2976,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-6TgjOS1eCFY48yFhQtcW01dr8uHc3g3Ef3YwxC30LqI="
+          "Value": "sha256-3mMpN3jSQ9O32rqy9pQIkkY9bW/thaXTp/95q6HRtTc="
         }
       ]
     },
     {
       "Route": "css/site.css.gz",
-      "AssetFile": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\obj\\Debug\\net9.0\\compressed\\z6spo0zthg-1a0ahq03he.gz",
+      "AssetFile": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\obj\\Debug\\net9.0\\compressed\\z6spo0zthg-2o4ayd71yp.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2991,7 +2991,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1256"
+          "Value": "1261"
         },
         {
           "Name": "Content-Type",
@@ -2999,11 +2999,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"jyvE+jTCGqxlnaxgqIarTHbqBxEGpmA16saaz3hwhvs=\""
+          "Value": "\"3rlBzgDbDJmB2UlEzEMNtRIc/28bgDISn9Wcxn2EvYM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 23:24:18 GMT"
+          "Value": "Fri, 29 Aug 2025 21:48:33 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3021,7 +3021,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-jyvE+jTCGqxlnaxgqIarTHbqBxEGpmA16saaz3hwhvs="
+          "Value": "sha256-3rlBzgDbDJmB2UlEzEMNtRIc/28bgDISn9Wcxn2EvYM="
         }
       ]
     },

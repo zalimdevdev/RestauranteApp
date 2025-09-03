@@ -24,6 +24,9 @@ public class ItemMenu
 
     public int CategoriaId { get; set; }
 
+
+
+  
     // Propiedades de navegación
     [ForeignKey("CategoriaId")]
     public virtual CategoriaMenu? CategoriaMenu { get; set; }

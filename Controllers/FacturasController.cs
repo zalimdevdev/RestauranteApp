@@ -21,7 +21,7 @@ namespace RestauranteApp.Controllers
         // GET: Facturas
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Facturas.Include(f => f.Cliente).Include(f => f.Pedido);
+            var appDbContext = _context.Facturas.Include(f => f.Cliente).Include(f => f.Pedido).Include(f => f.Mesa);
             return View(await appDbContext.ToListAsync());
         }
 
@@ -36,6 +36,7 @@ namespace RestauranteApp.Controllers
             var factura = await _context.Facturas
                 .Include(f => f.Cliente)
                 .Include(f => f.Pedido)
+                .Include(f => f.Mesa)
                 .FirstOrDefaultAsync(m => m.FacturaId == id);
             if (factura == null)
             {
@@ -50,6 +51,7 @@ namespace RestauranteApp.Controllers
         {
             ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteId", "Apellido");
             ViewData["PedidoId"] = new SelectList(_context.Pedidos, "PedidoId", "EstadoPedido");
+            ViewData["MesaId"] = new SelectList(_context.Mesas, "MesaId", "NumeroMesa");
             return View();
         }
 
@@ -58,7 +60,7 @@ namespace RestauranteApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FacturaId,PedidoId,ClienteId,MontoTotal,MetodoPago,FechaPago")] Factura factura)
+        public async Task<IActionResult> Create([Bind("FacturaId,PedidoId,ClienteId,MesaId,MontoTotal,MetodoPago,FechaPago")] Factura factura)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +70,7 @@ namespace RestauranteApp.Controllers
             }
             ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteId", "Apellido", factura.ClienteId);
             ViewData["PedidoId"] = new SelectList(_context.Pedidos, "PedidoId", "EstadoPedido", factura.PedidoId);
+            ViewData["MesaId"] = new SelectList(_context.Mesas, "MesaId", "NumeroMesa",factura.MesaId);
             return View(factura);
         }
 
@@ -86,6 +89,7 @@ namespace RestauranteApp.Controllers
             }
             ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteId", "Apellido", factura.ClienteId);
             ViewData["PedidoId"] = new SelectList(_context.Pedidos, "PedidoId", "EstadoPedido", factura.PedidoId);
+            ViewData["MesaId"] = new SelectList(_context.Mesas, "MesaId", "NumeroMesa",factura.MesaId);
             return View(factura);
         }
 
@@ -94,7 +98,7 @@ namespace RestauranteApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FacturaId,PedidoId,ClienteId,MontoTotal,MetodoPago,FechaPago")] Factura factura)
+        public async Task<IActionResult> Edit(int id, [Bind("FacturaId,PedidoId,ClienteId,MesaId,MontoTotal,MetodoPago,FechaPago")] Factura factura)
         {
             if (id != factura.FacturaId)
             {
@@ -123,6 +127,7 @@ namespace RestauranteApp.Controllers
             }
             ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteId", "Apellido", factura.ClienteId);
             ViewData["PedidoId"] = new SelectList(_context.Pedidos, "PedidoId", "EstadoPedido", factura.PedidoId);
+            ViewData["MesaId"] = new SelectList(_context.Mesas, "MesaId", "NumeroMesa",factura.MesaId);
             return View(factura);
         }
 
@@ -137,6 +142,7 @@ namespace RestauranteApp.Controllers
             var factura = await _context.Facturas
                 .Include(f => f.Cliente)
                 .Include(f => f.Pedido)
+                .Include(f => f.Mesa)
                 .FirstOrDefaultAsync(m => m.FacturaId == id);
             if (factura == null)
             {
