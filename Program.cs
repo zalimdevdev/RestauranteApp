@@ -1,6 +1,7 @@
 using RestauranteApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
+using Rotativa.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,12 +23,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+RotativaConfiguration.Setup(app.Environment.WebRootPath, "rotativa");
+// confif
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization();
-
 app.MapStaticAssets();
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")

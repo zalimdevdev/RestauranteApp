@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RestauranteApp.Models;
+using Rotativa.AspNetCore;
 
 namespace RestauranteApp.Controllers
 {
@@ -132,6 +133,44 @@ namespace RestauranteApp.Controllers
 
             return View(gasto);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+// GET: Gastos/GeneratePdf
+public async Task<IActionResult> GeneratePdf()
+{
+    var gastos = await _context.Gastos.OrderBy(g => g.FechaGasto).ToListAsync();
+    
+    return new ViewAsPdf("ReporteGastos", gastos)
+    {
+        FileName = $"Reporte_Gastos_{DateTime.Now:yyyyMMddHHmmss}.pdf",
+        PageOrientation = Rotativa.AspNetCore.Options.Orientation.Landscape,
+        PageSize = Rotativa.AspNetCore.Options.Size.A4,
+        CustomSwitches = "--page-offset 0 --footer-center [page] --footer-font-size 8",
+        PageMargins = { Left = 10, Right = 10, Top = 15, Bottom = 15 }
+    };
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
         // POST: Gastos/Delete/5
         [HttpPost, ActionName("Delete")]

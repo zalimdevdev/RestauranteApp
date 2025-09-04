@@ -636,3 +636,11 @@ D:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Deb
 D:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Debug\net9.0\compressed\5ejryotbf6-614d5fsc6n.gz
 D:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Debug\net9.0\RestauranteApp.sourcelink.json
 D:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Debug\net9.0\compressed\z6spo0zthg-2o4ayd71yp.gz
+D:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\bin\Debug\net9.0\RazorPDF.dll
+D:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\bin\Debug\net9.0\runtimes\linux-x64\native\libwkhtmltox.so
+D:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\bin\Debug\net9.0\runtimes\linux-x86\native\libwkhtmltox.so
+D:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\bin\Debug\net9.0\runtimes\osx-x64\native\libwkhtmltox.dylib
+D:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\bin\Debug\net9.0\runtimes\osx-x86\native\libwkhtmltox.dylib
+D:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\bin\Debug\net9.0\runtimes\win-x64\native\libwkhtmltox.dll
+D:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\bin\Debug\net9.0\runtimes\win-x86\native\libwkhtmltox.dll
+D:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\bin\Debug\net9.0\Rotativa.AspNetCore.dll

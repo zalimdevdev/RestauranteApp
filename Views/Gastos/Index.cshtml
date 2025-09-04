@@ -1,3 +1,5 @@
+html
+
 @model IEnumerable<RestauranteApp.Models.Gasto>
 
 @{
@@ -8,6 +10,7 @@
 
 <p>
     <a asp-action="Create">Create New</a>
+    <a asp-action="GeneratePdf" class="btn btn-success" target="_blank">Generar Reporte PDF</a>
 </p>
 <table class="neo-table">
     <thead>

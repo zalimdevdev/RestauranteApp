@@ -1,0 +1,129 @@
+@model IEnumerable<RestauranteApp.Models.Gasto>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Reporte de Gastos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #2c3e50;
+        }
+        .header p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .total-row {
+            font-weight: bold;
+            background-color: #ecf0f1;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 10px;
+            color: #95a5a6;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        .summary {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .summary p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Reporte de Gastos</h1>
+        <p>Generado el: @DateTime.Now.ToString("dd/MM/yyyy HH:mm")</p>
+    </div>
+
+    <div class="summary">
+        <p><strong>Total de registros:</strong> @Model.Count()</p>
+        <p><strong>Período:</strong> 
+            @Model.Min(g => g.FechaGasto)?.ToString("dd/MM/yyyy") - 
+            @Model.Max(g => g.FechaGasto)?.ToString("dd/MM/yyyy")</p>
+        <p><strong>Total gastado:</strong> @Model.Sum(g => g.Monto).ToString("C")</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Descripción</th>
+                <th>Monto</th>
+                <th>Fecha</th>
+                <th>Categoría</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Descripcion</td>
+                    <td class="text-right">@item.Monto.ToString("C")</td>
+                    <td class="text-center">@item.FechaGasto?.ToString("dd/MM/yyyy")</td>
+                    <td>@item.CategoriaGasto</td>
+                </tr>
+            }
+            <tr class="total-row">
+                <td colspan="1"><strong>TOTAL</strong></td>
+                <td class="text-right"><strong>@Model.Sum(g => g.Monto).ToString("C")</strong></td>
+                <td colspan="2"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="footer">
+        <p>Sistema de Gestión de Restaurante - Reporte generado automáticamente</p>
+    </div>
+</body>
+</html>
