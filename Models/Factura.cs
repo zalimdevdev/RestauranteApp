@@ -22,19 +22,12 @@ public class Factura
     [StringLength(50)]
     public string MetodoPago { get; set; }
 
-
 //public string Estado { get; set; }
-
-
     public DateTime FechaPago { get; set; } = DateTime.Now;
 
     // Propiedades de navegación
-
-
 //     [ForeignKey("ItemMenuId")]
 //     public virtual ItemMenu? ItemMenu { get; set; }
-
-
     // Propiedades de navegación
     [ForeignKey("PedidoId")]
     public virtual Pedido? Pedido { get; set; }

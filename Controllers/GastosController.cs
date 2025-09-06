@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RestauranteApp.Models;
 using Rotativa.AspNetCore;
+using System.Data;
+using ClosedXML.Excel;
 
 namespace RestauranteApp.Controllers
 {
@@ -138,13 +140,6 @@ namespace RestauranteApp.Controllers
 
 
 
-
-
-
-
-
-
-
 // GET: Gastos/GeneratePdf
 public async Task<IActionResult> GeneratePdf()
 {
@@ -159,6 +154,91 @@ public async Task<IActionResult> GeneratePdf()
         PageMargins = { Left = 10, Right = 10, Top = 15, Bottom = 15 }
     };
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// GET: Gastos/ExportarExcel
+public async Task<IActionResult> ExportarExcel()
+{
+    // Obtener los datos de gastos
+    var gastos = await _context.Gastos.OrderBy(g => g.FechaGasto).ToListAsync();
+    
+    // Crear un nuevo libro de trabajo
+    using (var workbook = new XLWorkbook())
+    {
+        // Agregar una hoja de trabajo
+        var worksheet = workbook.Worksheets.Add("Gastos");
+        
+        // Agregar encabezados
+        worksheet.Cell(1, 1).Value = "ID";
+        worksheet.Cell(1, 2).Value = "Descripción";
+        worksheet.Cell(1, 3).Value = "Monto";
+        worksheet.Cell(1, 4).Value = "Fecha";
+        worksheet.Cell(1, 5).Value = "Categoría";
+        
+        // Formatear encabezados
+        var headerRange = worksheet.Range(1, 1, 1, 5);
+        headerRange.Style.Fill.BackgroundColor = XLColor.LightGray;
+        headerRange.Style.Font.Bold = true;
+        headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+        
+        // Llenar con datos
+        for (int i = 0; i < gastos.Count; i++)
+        {
+            var gasto = gastos[i];
+            worksheet.Cell(i + 2, 1).Value = gasto.GastoId;
+            worksheet.Cell(i + 2, 2).Value = gasto.Descripcion;
+            worksheet.Cell(i + 2, 3).Value = gasto.Monto;
+            worksheet.Cell(i + 2, 4).Value = gasto.FechaGasto;
+            worksheet.Cell(i + 2, 5).Value = gasto.CategoriaGasto;
+        }
+        
+        // Ajustar el ancho de las columnas al contenido
+        worksheet.Columns().AdjustToContents();
+        
+        // Formatear columna de monto como moneda
+        worksheet.Column(3).Style.NumberFormat.Format = "#,##0.00";
+        
+        // Preparar la respuesta
+        using (var stream = new MemoryStream())
+        {
+            workbook.SaveAs(stream);
+            var content = stream.ToArray();
+            
+            return File(
+                content,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                $"Reporte_Gastos_{DateTime.Now:yyyyMMddHHmmss}.xlsx"
+            );
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
