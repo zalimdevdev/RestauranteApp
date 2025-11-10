@@ -1,7 +1,6 @@
  
-  
-
 using Microsoft.EntityFrameworkCore;
+using RestauranteApp.ViewModels;
 
 namespace RestauranteApp.Models;
 
@@ -22,7 +21,8 @@ public class AppDbContext : DbContext
     public DbSet<Gasto> Gastos { get; set; }
     public DbSet<Proveedor> Proveedores { get; set; }
     public DbSet<Ingrediente> Ingredientes { get; set; }
-    
+    public DbSet<DetalleFactura> DetalleFacturas { get; set; }
+
     public DbSet<DatosNegocio> DatosNegocios { get; set; }
 
 
@@ -43,6 +43,19 @@ public class AppDbContext : DbContext
                 DireccionNegocio = "Tu Dirección"
             }
         );
+
+    modelBuilder.Entity<DetalleFactura>()
+        .HasOne(d => d.Factura)
+        .WithMany(f => f.DetalleFacturas)
+        .HasForeignKey(d => d.FacturaId)
+        .OnDelete(DeleteBehavior.Cascade);
+
+    modelBuilder.Entity<DetalleFactura>()
+        .Property(p => p.PrecioUnitario).HasPrecision(18, 2);
+    modelBuilder.Entity<DetalleFactura>()
+        .Property(p => p.Subtotal).HasPrecision(18, 2);
+    modelBuilder.Entity<Factura>()
+        .Property(p => p.MontoTotal).HasPrecision(18, 2);
     }
 
 }

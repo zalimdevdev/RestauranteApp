@@ -11,6 +11,8 @@ public class CategoriaMenu
     [StringLength(50)]
     public string NombreCategoria { get; set; }
 
+    
+
 
     [StringLength(70)]
     public string DescripcionCategoria { get; set; }

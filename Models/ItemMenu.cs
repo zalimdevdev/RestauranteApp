@@ -22,10 +22,9 @@ public class ItemMenu
     [StringLength(20)]
     public string Estado { get; set; }
 
+    public string? ImagenUrl { get; set; }
+
     public int CategoriaId { get; set; }
-
-
-
   
     // Propiedades de navegación
     [ForeignKey("CategoriaId")]

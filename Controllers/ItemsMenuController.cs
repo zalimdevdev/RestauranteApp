@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +15,12 @@ namespace RestauranteApp.Controllers
     public class ItemsMenuController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ItemsMenuController(AppDbContext context)
+        public ItemsMenuController(AppDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: ItemsMenu
@@ -56,10 +61,26 @@ namespace RestauranteApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ItemId,NombreItem,Descripcion,Precio,CategoriaId,Estado")] ItemMenu itemMenu)
+        public async Task<IActionResult> Create([Bind("ItemId,NombreItem,Descripcion,Precio,CategoriaId,Estado")] ItemMenu itemMenu, IFormFile? imagenFile)
         {
             if (ModelState.IsValid)
             {
+                if (imagenFile != null && imagenFile.Length > 0)
+                {
+                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "items");
+                    Directory.CreateDirectory(uploadsFolder);
+
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + imagenFile.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await imagenFile.CopyToAsync(fileStream);
+                    }
+
+                    itemMenu.ImagenUrl = "/images/items/" + uniqueFileName;
+                }
+
                 _context.Add(itemMenu);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -90,7 +111,7 @@ namespace RestauranteApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ItemId,NombreItem,Descripcion,Precio,CategoriaId,Estado")] ItemMenu itemMenu)
+        public async Task<IActionResult> Edit(int id, [Bind("ItemId,NombreItem,Descripcion,Precio,CategoriaId,Estado,ImagenUrl")] ItemMenu itemMenu, IFormFile? imagenFile)
         {
             if (id != itemMenu.ItemId)
             {
@@ -101,6 +122,33 @@ namespace RestauranteApp.Controllers
             {
                 try
                 {
+                    if (imagenFile != null && imagenFile.Length > 0)
+                    {
+                        // Eliminar imagen anterior si existe
+                        if (!string.IsNullOrEmpty(itemMenu.ImagenUrl))
+                        {
+                            string oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, itemMenu.ImagenUrl.TrimStart('/'));
+                            if (System.IO.File.Exists(oldImagePath))
+                            {
+                                System.IO.File.Delete(oldImagePath);
+                            }
+                        }
+
+                        // Guardar nueva imagen
+                        string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "items");
+                        Directory.CreateDirectory(uploadsFolder);
+
+                        string uniqueFileName = Guid.NewGuid().ToString() + "_" + imagenFile.FileName;
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await imagenFile.CopyToAsync(fileStream);
+                        }
+
+                        itemMenu.ImagenUrl = "/images/items/" + uniqueFileName;
+                    }
+
                     _context.Update(itemMenu);
                     await _context.SaveChangesAsync();
                 }
@@ -148,6 +196,16 @@ namespace RestauranteApp.Controllers
             var itemMenu = await _context.ItemsMenu.FindAsync(id);
             if (itemMenu != null)
             {
+                // Eliminar imagen asociada si existe
+                if (!string.IsNullOrEmpty(itemMenu.ImagenUrl))
+                {
+                    string imagePath = Path.Combine(_webHostEnvironment.WebRootPath, itemMenu.ImagenUrl.TrimStart('/'));
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        System.IO.File.Delete(imagePath);
+                    }
+                }
+
                 _context.ItemsMenu.Remove(itemMenu);
             }
 

@@ -22,10 +22,10 @@
                 @Html.DisplayNameFor(model => model.FechaPago)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Pedido)
+                @Html.DisplayNameFor(model => model.Cliente)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cliente)
+                @Html.DisplayNameFor(model => model.Mesa)
             </th>
             <th></th>
         </tr>
@@ -43,14 +43,15 @@
                 @Html.DisplayFor(modelItem => item.FechaPago)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Pedido.EstadoPedido)
+                @Html.DisplayFor(modelItem => item.Cliente.Apellido)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Cliente.Apellido)
+                @Html.DisplayFor(modelItem => item.Mesa.NumeroMesa)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.FacturaId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.FacturaId">Details</a> |
+                <a asp-action="FacturaPdf" asp-route-id="@item.FacturaId" target="_blank" class="btn btn-sm btn-primary">PDF</a> |
                 <a asp-action="Delete" asp-route-id="@item.FacturaId">Delete</a>
             </td>
         </tr>

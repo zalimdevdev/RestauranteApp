@@ -1,41 +1,33 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
-namespace RestauranteApp.Models;
-
-public class Factura
+namespace RestauranteApp.Models
 {
-    [Key]
-    public int FacturaId { get; set; }
+    public class Factura
+    {
+        [Key]
+        public int FacturaId { get; set; }
 
-    [Required]
-    public int PedidoId { get; set; }
+        public int? ClienteId { get; set; } // Nullable, venta a cliente no registrado
+        public int? MesaId { get; set; }
 
-    public int? ClienteId { get; set; } // Nullable, ya que una venta puede ser a un cliente no registrado
+        [Precision(18, 2)]
+        public decimal MontoTotal { get; set; }
+        [StringLength(50)]
+        public string MetodoPago { get; set; } = string.Empty;
+        public DateTime FechaPago { get; set; } = DateTime.Now;
 
-    public int? MesaId { get; set; }
+        // Colección de detalles (relación 1 - N)
+        public virtual ICollection<DetalleFactura> DetalleFacturas { get; set; } = new List<DetalleFactura>();
 
-    [Required]
-    [Column(TypeName = "decimal(18, 2)")]
-    public decimal MontoTotal { get; set; }
+        // Navegación a otras entidades
+        [ForeignKey(nameof(ClienteId))]
+        public virtual Cliente? Cliente { get; set; }
 
-    [StringLength(50)]
-    public string MetodoPago { get; set; }
-
-//public string Estado { get; set; }
-    public DateTime FechaPago { get; set; } = DateTime.Now;
-
-    // Propiedades de navegación
-//     [ForeignKey("ItemMenuId")]
-//     public virtual ItemMenu? ItemMenu { get; set; }
-    // Propiedades de navegación
-    [ForeignKey("PedidoId")]
-    public virtual Pedido? Pedido { get; set; }
-
-    [ForeignKey("ClienteId")]
-    public virtual Cliente? Cliente { get; set; }
-
-    [ForeignKey("MesaId")]
-    public virtual Mesa? Mesa { get; set; }
-
+        [ForeignKey(nameof(MesaId))]
+        public virtual Mesa? Mesa { get; set; }
+    }
 }

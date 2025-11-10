@@ -1,66 +1,230 @@
-@model RestauranteApp.Models.Factura
+@model RestauranteApp.ViewModels.FacturaCreateVM
+@using System.Text.Json
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Venta";
+    var priceJson = JsonSerializer.Serialize(Model.ItemPrecios ?? new Dictionary<int, decimal>());
 }
 
-<h1>Edit</h1>
+<h1>@ViewData["Title"]</h1>
 
-<h4>Factura</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="FacturaId" />
-            <div class="form-group">
-                <label asp-for="PedidoId" class="control-label"></label>
-                <select asp-for="PedidoId" class="form-control" asp-items="ViewBag.PedidoId"></select>
-                <span asp-validation-for="PedidoId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ClienteId" class="control-label"></label>
-                <select asp-for="ClienteId" class="form-control" asp-items="ViewBag.ClienteId"></select>
-                <span asp-validation-for="ClienteId" class="text-danger"></span>
-            </div>
+<form asp-action="Edit" method="post" id="formFactura">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="FacturaId" />
 
+    <div asp-validation-summary="All" class="alert alert-danger"></div>
 
+    <div class="row g-3 mb-3">
+        <div class="col-md-4">
+            <label class="form-label" for="ClienteId">Cliente</label>
+            <select asp-for="ClienteId" class="form-select" asp-items="Model.Clientes">
+                <option value="">Consumidor Final</option>
+            </select>
+        </div>
 
-            <div class="form-group col-md-5">
-                <label asp-for="MesaId" class="control-label"></label>
-                <select asp-for="MesaId" class ="form-control" asp-items="ViewBag.MesaId"></select>
-            </div>
+        <div class="col-md-4">
+            <label class="form-label" for="MesaId">Mesa</label>
+            <select asp-for="MesaId" class="form-select" asp-items="Model.Mesas">
+                <option value="">---</option>
+            </select>
+        </div>
 
+        <div class="col-md-4">
+            <label class="form-label" for="MetodoPago">Método de pago</label>
+            <select asp-for="MetodoPago" class="form-select">
+                <option>Efectivo</option>
+                <option>Tarjeta</option>
+                <option>Transferencia</option>
+            </select>
+        </div>
 
-
-
-
-            <div class="form-group">
-                <label asp-for="MontoTotal" class="control-label"></label>
-                <input asp-for="MontoTotal" class="form-control" />
-                <span asp-validation-for="MontoTotal" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MetodoPago" class="control-label"></label>
-                <input asp-for="MetodoPago" class="form-control" />
-                <span asp-validation-for="MetodoPago" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaPago" class="control-label"></label>
-                <input asp-for="FechaPago" class="form-control" />
-                <span asp-validation-for="FechaPago" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        <div class="col-md-4">
+            <label class="form-label" for="FechaPago">Fecha</label>
+            <input asp-for="FechaPago" class="form-control" type="datetime-local" placeholder="Seleccione fecha y hora" />
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div class="card mb-3">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <strong>Productos</strong>
+            <button type="button" id="btnAddRow" class="btn btn-sm btn-success">+ Agregar producto</button>
+        </div>
+
+        <div class="card-body p-0">
+            <table class="table table-striped mb-0" id="tblDetalles">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width:5%;">#</th>
+                        <th>Producto</th>
+                        <th style="width:120px;">Cantidad</th>
+                        <th style="width:140px;">Precio unit.</th>
+                        <th style="width:140px;">Subtotal</th>
+                        <th style="width:80px;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @* Se cargarán los detalles existentes por JS *@
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3"></td>
+                        <td class="text-end"><strong>Total:</strong></td>
+                        <td>
+                            <input type="text" id="MontoTotal" readonly class="form-control-plaintext fw-bold" value="0.00" aria-label="Total" />
+                        </td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Actualizar Venta</button>
+        <a asp-action="Index" class="btn btn-secondary">Volver</a>
+    </div>
+</form>
+
+<!-- Template de fila: usa __INDEX__ para reemplazar por JS -->
+<script type="text/template" id="templateRow">
+<tr data-index="__INDEX__">
+    <td class="index-cell">__POS__</td>
+
+    <td>
+        <select class="form-select producto" name="Detalles[__INDEX__].ItemId" required aria-label="Producto">
+            <option value="">Seleccione...</option>
+            @foreach (var it in Model.Items)
+            {
+                <text><option value="@it.Value">@it.Text</option></text>
+            }
+        </select>
+    </td>
+
+    <td>
+        <input type="number" min="1" value="1" class="form-control cantidad" name="Detalles[__INDEX__].Cantidad" required aria-label="Cantidad" placeholder="1" />
+    </td>
+
+    <td>
+        <input type="text" class="form-control precio" name="Detalles[__INDEX__].PrecioUnitario" readonly aria-label="Precio unitario" />
+    </td>
+
+    <td>
+        <input type="text" class="form-control subtotal" name="Detalles[__INDEX__].Subtotal" readonly aria-label="Subtotal" />
+    </td>
+
+    <td>
+        <button type="button" class="btn btn-sm btn-danger btn-remove">Eliminar</button>
+    </td>
+</tr>
+</script>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+        const priceMap = @Html.Raw(priceJson);
+
+        function addRow(initialItemId = "", initialQty = 1) {
+            const tbody = $("#tblDetalles tbody");
+            const idx = tbody.find("tr").length;
+            let tpl = $("#templateRow").html()
+                .replace(/__INDEX__/g, idx)
+                .replace(/__POS__/g, (idx + 1));
+            tbody.append(tpl);
+
+            const $row = tbody.find("tr").last();
+
+            if (initialItemId) $row.find("select.producto").val(initialItemId).trigger("change");
+            if (initialQty > 1) $row.find("input.cantidad").val(initialQty);
+            // focus the select for faster input
+            $row.find("select.producto").focus();
+            renumberRows();
+            recalcRow($row);
+        }
+
+        function recalcRow($row) {
+            const idStr = $row.find("select.producto").val();
+            const id = idStr ? parseInt(idStr) : null;
+            const qty = parseInt($row.find("input.cantidad").val()) || 0;
+            const price = id && priceMap[id] ? parseFloat(priceMap[id]) : 0;
+            const subtotal = qty * price;
+
+            $row.find("input.precio").val(price.toFixed(2));
+            $row.find("input.subtotal").val(subtotal.toFixed(2));
+            recalcTotal();
+        }
+
+        function recalcTotal() {
+            let total = 0;
+            $("#tblDetalles tbody tr").each(function () {
+                const sub = parseFloat($(this).find("input.subtotal").val()) || 0;
+                total += sub;
+            });
+            $("#MontoTotal").val(total.toFixed(2));
+        }
+
+        function renumberRows() {
+            $("#tblDetalles tbody tr").each(function (i) {
+                $(this).attr("data-index", i);
+                $(this).find(".index-cell").text(i + 1);
+
+                // Update name attributes for inputs/selects to match Detalles[i].Prop
+                $(this).find("select.producto").attr("name", `Detalles[${i}].ItemId`);
+                $(this).find("input.cantidad").attr("name", `Detalles[${i}].Cantidad`);
+                $(this).find("input.precio").attr("name", `Detalles[${i}].PrecioUnitario`);
+                $(this).find("input.subtotal").attr("name", `Detalles[${i}].Subtotal`);
+            });
+        }
+
+        $(function () {
+            // Agregar filas existentes desde ViewBag
+            const existingDetailsJson = '@Json.Serialize(ViewBag.ExistingDetails ?? new List<Dictionary<string, object>>())';
+            const detailsArray = JSON.parse(existingDetailsJson);
+            if (detailsArray.length > 0) {
+                detailsArray.forEach(detail => {
+                    addRow(detail.itemId, detail.cantidad);
+                });
+            } else {
+                // Agrega una fila inicial si no hay detalles
+                addRow();
+            }
+
+            // Botón agregar fila
+            $("#btnAddRow").on("click", function () {
+                addRow();
+            });
+
+            // Cuando cambia producto o cantidad en cualquier fila
+            $("#tblDetalles").on("change", "select.producto", function () {
+                const $row = $(this).closest("tr");
+                recalcRow($row);
+            });
+
+            $("#tblDetalles").on("input", "input.cantidad", function () {
+                const $row = $(this).closest("tr");
+                // limitar cantidad a mínimo 1
+                const val = parseInt($(this).val()) || 1;
+                if (val < 1) $(this).val(1);
+                recalcRow($row);
+            });
+
+            // Remover fila
+            $("#tblDetalles").on("click", ".btn-remove", function () {
+                $(this).closest("tr").remove();
+                renumberRows();
+                recalcTotal();
+            });
+
+            // Antes de enviar, renumerar para asegurar índices correctos
+            $("#formFactura").on("submit", function () {
+                renumberRows();
+                // opcional: validar que haya al menos un detalle
+                if ($("#tblDetalles tbody tr").length === 0) {
+                    alert("Agrega al menos un producto.");
+                    return false;
+                }
+                return true;
+            });
+        });
+    </script>
 }

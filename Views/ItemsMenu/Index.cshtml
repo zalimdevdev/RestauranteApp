@@ -25,6 +25,9 @@
                 @Html.DisplayNameFor(model => model.CategoriaMenu)
             </th>
 
+            <th>
+                Imagen
+            </th>
 
             <th>
                 @Html.DisplayNameFor(model => model.Estado)
@@ -50,7 +53,16 @@
                 @Html.DisplayFor(modelItem => item.CategoriaMenu.NombreCategoria)
             </td>
 
-
+            <td>
+                @if (!string.IsNullOrEmpty(item.ImagenUrl))
+                {
+                    <img src="@item.ImagenUrl" alt="@item.NombreItem" class="img-thumbnail" style="max-width: 100px; max-height: 100px;" />
+                }
+                else
+                {
+                    <span class="text-muted">Sin imagen</span>
+                }
+            </td>
 
             <td>
                 @Html.DisplayFor(modelItem => item.Estado)

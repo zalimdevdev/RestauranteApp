@@ -128,6 +128,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbGVhZG9zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Zalim Cursos/Zalim Unan 2025/Monografia/RestauranteApp/RestauranteApp/Views/Estadisticas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXN0YWRpc3RpY2FzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Zalim Cursos/Zalim Unan 2025/Monografia/RestauranteApp/RestauranteApp/Views/Facturas/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmFjdHVyYXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -142,6 +146,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Zalim Cursos/Zalim Unan 2025/Monografia/RestauranteApp/RestauranteApp/Views/Facturas/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmFjdHVyYXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Zalim Cursos/Zalim Unan 2025/Monografia/RestauranteApp/RestauranteApp/Views/Facturas/FacturaPdf.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmFjdHVyYXNcRmFjdHVyYVBkZi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Zalim Cursos/Zalim Unan 2025/Monografia/RestauranteApp/RestauranteApp/Views/Facturas/Index.cshtml]

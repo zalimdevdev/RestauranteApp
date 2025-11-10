@@ -19,8 +19,13 @@ public class DatosNegocio
     [StringLength(15)]
     public string? Ruc { get; set; }
 
-    [StringLength(15)]
-    public string? DireccionNegocio { get; set; } 
+    [StringLength(55)]
+    public string? DireccionNegocio { get; set; }
+
+    [EmailAddress]
+    public string? Email { get; set; }
+
+    public string? LogoUrl { get; set; }
 
 
 }

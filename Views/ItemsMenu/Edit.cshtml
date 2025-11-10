@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ItemId" />
             <div class="form-group">
@@ -43,6 +43,18 @@
                 <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
 
+            <div class="form-group">
+                <label asp-for="ImagenUrl" class="control-label"></label>
+                @if (!string.IsNullOrEmpty(Model.ImagenUrl))
+                {
+                    <div class="mb-2">
+                        <img src="@Model.ImagenUrl" alt="Imagen actual" class="img-thumbnail" style="max-width: 200px;" />
+                        <p class="text-muted">Imagen actual</p>
+                    </div>
+                }
+                <input type="file" name="imagenFile" class="form-control" accept="image/*" />
+                <span class="text-muted">Seleccione una nueva imagen para reemplazar la actual (opcional)</span>
+            </div>
 
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

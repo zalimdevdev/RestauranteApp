@@ -92,8 +92,14 @@ namespace RestauranteApp.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DatosNegocioId"));
 
                     b.Property<string>("DireccionNegocio")
-                        .HasMaxLength(15)
-                        .HasColumnType("character varying(15)");
+                        .HasMaxLength(55)
+                        .HasColumnType("character varying(55)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LogoUrl")
+                        .HasColumnType("text");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -121,6 +127,40 @@ namespace RestauranteApp.Migrations
                             Ruc = "Tu RUC",
                             Telefono = "Tu Teléfono"
                         });
+                });
+
+            modelBuilder.Entity("RestauranteApp.Models.DetalleFactura", b =>
+                {
+                    b.Property<int>("DetalleFacturaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DetalleFacturaId"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("FacturaId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("PrecioUnitario")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
+
+                    b.Property<decimal>("Subtotal")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
+
+                    b.HasKey("DetalleFacturaId");
+
+                    b.HasIndex("FacturaId");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("DetalleFacturas");
                 });
 
             modelBuilder.Entity("RestauranteApp.Models.DetallePedido", b =>
@@ -213,19 +253,14 @@ namespace RestauranteApp.Migrations
                         .HasColumnType("character varying(50)");
 
                     b.Property<decimal>("MontoTotal")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("PedidoId")
-                        .HasColumnType("integer");
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
 
                     b.HasKey("FacturaId");
 
                     b.HasIndex("ClienteId");
 
                     b.HasIndex("MesaId");
-
-                    b.HasIndex("PedidoId")
-                        .IsUnique();
 
                     b.ToTable("Facturas");
                 });
@@ -308,6 +343,9 @@ namespace RestauranteApp.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
+
+                    b.Property<string>("ImagenUrl")
+                        .HasColumnType("text");
 
                     b.Property<string>("NombreItem")
                         .IsRequired()
@@ -448,6 +486,25 @@ namespace RestauranteApp.Migrations
                     b.ToTable("Reservaciones");
                 });
 
+            modelBuilder.Entity("RestauranteApp.Models.DetalleFactura", b =>
+                {
+                    b.HasOne("RestauranteApp.Models.Factura", "Factura")
+                        .WithMany("DetalleFacturas")
+                        .HasForeignKey("FacturaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RestauranteApp.Models.ItemMenu", "ItemMenu")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Factura");
+
+                    b.Navigation("ItemMenu");
+                });
+
             modelBuilder.Entity("RestauranteApp.Models.DetallePedido", b =>
                 {
                     b.HasOne("RestauranteApp.Models.ItemMenu", "ItemMenu")
@@ -477,17 +534,9 @@ namespace RestauranteApp.Migrations
                         .WithMany()
                         .HasForeignKey("MesaId");
 
-                    b.HasOne("RestauranteApp.Models.Pedido", "Pedido")
-                        .WithOne("Factura")
-                        .HasForeignKey("RestauranteApp.Models.Factura", "PedidoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Cliente");
 
                     b.Navigation("Mesa");
-
-                    b.Navigation("Pedido");
                 });
 
             modelBuilder.Entity("RestauranteApp.Models.Ingrediente", b =>
@@ -572,6 +621,11 @@ namespace RestauranteApp.Migrations
                     b.Navigation("Pedidos");
                 });
 
+            modelBuilder.Entity("RestauranteApp.Models.Factura", b =>
+                {
+                    b.Navigation("DetalleFacturas");
+                });
+
             modelBuilder.Entity("RestauranteApp.Models.ItemMenu", b =>
                 {
                     b.Navigation("DetallesPedido");
@@ -589,8 +643,6 @@ namespace RestauranteApp.Migrations
             modelBuilder.Entity("RestauranteApp.Models.Pedido", b =>
                 {
                     b.Navigation("DetallesPedido");
-
-                    b.Navigation("Factura");
                 });
 
             modelBuilder.Entity("RestauranteApp.Models.Proveedor", b =>

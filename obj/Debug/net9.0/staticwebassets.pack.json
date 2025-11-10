@@ -13,6 +13,50 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\items\\2bb1a13a-0ba5-4f25-a373-515541af60c2_Copilot_20251109_151934.png",
+      "PackagePath": "staticwebassets\\images\\items\\2bb1a13a-0ba5-4f25-a373-515541af60c2_Copilot_20251109_151934.png"
+    },
+    {
+      "Id": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\items\\44e5a16b-9eea-48d3-928b-96cd67e6118f_Copilot_20251109_153219.png",
+      "PackagePath": "staticwebassets\\images\\items\\44e5a16b-9eea-48d3-928b-96cd67e6118f_Copilot_20251109_153219.png"
+    },
+    {
+      "Id": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\items\\5d0155cc-12d7-4b2e-9474-3a48a032bb96_Copilot_20251109_153956.png",
+      "PackagePath": "staticwebassets\\images\\items\\5d0155cc-12d7-4b2e-9474-3a48a032bb96_Copilot_20251109_153956.png"
+    },
+    {
+      "Id": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\logos\\078861cf-7fa9-4010-aae0-422878b3125f_Copilot_20251109_164343.png",
+      "PackagePath": "staticwebassets\\images\\logos\\078861cf-7fa9-4010-aae0-422878b3125f_Copilot_20251109_164343.png"
+    },
+    {
+      "Id": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\logos\\1b9715bc-0861-4b35-8d4a-0f87aef85fa0_Copilot_20251109_183558.png",
+      "PackagePath": "staticwebassets\\images\\logos\\1b9715bc-0861-4b35-8d4a-0f87aef85fa0_Copilot_20251109_183558.png"
+    },
+    {
+      "Id": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\logos\\257be194-bd75-4df2-95a2-cdca950952aa_Copilot_20251109_183558.png",
+      "PackagePath": "staticwebassets\\images\\logos\\257be194-bd75-4df2-95a2-cdca950952aa_Copilot_20251109_183558.png"
+    },
+    {
+      "Id": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\logos\\791450bd-874d-4ef5-822c-603db86a3d65_Copilot_20251109_164343.png",
+      "PackagePath": "staticwebassets\\images\\logos\\791450bd-874d-4ef5-822c-603db86a3d65_Copilot_20251109_164343.png"
+    },
+    {
+      "Id": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\logos\\a59e2425-c3eb-47e8-bda5-66383a1920ee_Copilot_20251109_164343.png",
+      "PackagePath": "staticwebassets\\images\\logos\\a59e2425-c3eb-47e8-bda5-66383a1920ee_Copilot_20251109_164343.png"
+    },
+    {
+      "Id": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\logos\\c3dd038f-1581-4353-86d8-e6337ff9c222_Copilot_20251109_164343.png",
+      "PackagePath": "staticwebassets\\images\\logos\\c3dd038f-1581-4353-86d8-e6337ff9c222_Copilot_20251109_164343.png"
+    },
+    {
+      "Id": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\logos\\cb7848b6-87fa-41d4-b27d-1ec04fcc4ddc_Copilot_20251109_164343.png",
+      "PackagePath": "staticwebassets\\images\\logos\\cb7848b6-87fa-41d4-b27d-1ec04fcc4ddc_Copilot_20251109_164343.png"
+    },
+    {
+      "Id": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\logos\\f224f4b8-8cce-4ffd-9ef1-a4cd45fe795d_Copilot_20251109_164343.png",
+      "PackagePath": "staticwebassets\\images\\logos\\f224f4b8-8cce-4ffd-9ef1-a4cd45fe795d_Copilot_20251109_164343.png"
+    },
+    {
       "Id": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

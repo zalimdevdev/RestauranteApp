@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +15,12 @@ namespace RestauranteApp.Controllers
     public class DatosNegociosController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public DatosNegociosController(AppDbContext context)
+        public DatosNegociosController(AppDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: DatosNegocios
@@ -85,17 +90,57 @@ namespace RestauranteApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DatosNegocioId,Nombre,Telefono,Ruc,DireccionNegocio")] DatosNegocio datosNegocio)
+        public async Task<IActionResult> Edit(int id, [Bind("DatosNegocioId,Nombre,Telefono,Ruc,DireccionNegocio,Email")] DatosNegocio datosNegocio, IFormFile? logoFile)
         {
             if (id != datosNegocio.DatosNegocioId)
             {
                 return NotFound();
             }
 
+            // Obtener el registro actual para preservar LogoUrl si no se cambia
+            var existingDatosNegocio = await _context.DatosNegocios.AsNoTracking().FirstOrDefaultAsync(d => d.DatosNegocioId == id);
+            if (existingDatosNegocio == null)
+            {
+                return NotFound();
+            }
+
+            // Preservar LogoUrl si no se sube uno nuevo
+            if (logoFile == null || logoFile.Length == 0)
+            {
+                datosNegocio.LogoUrl = existingDatosNegocio.LogoUrl;
+            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    if (logoFile != null && logoFile.Length > 0)
+                    {
+                        // Eliminar logo anterior si existe
+                        if (!string.IsNullOrEmpty(existingDatosNegocio.LogoUrl))
+                        {
+                            string oldLogoPath = Path.Combine(_webHostEnvironment.WebRootPath, existingDatosNegocio.LogoUrl.TrimStart('/'));
+                            if (System.IO.File.Exists(oldLogoPath))
+                            {
+                                System.IO.File.Delete(oldLogoPath);
+                            }
+                        }
+
+                        // Guardar nuevo logo
+                        string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "logos");
+                        Directory.CreateDirectory(uploadsFolder);
+
+                        string uniqueFileName = Guid.NewGuid().ToString() + "_" + logoFile.FileName;
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await logoFile.CopyToAsync(fileStream);
+                        }
+
+                        datosNegocio.LogoUrl = "/images/logos/" + uniqueFileName;
+                    }
+
                     _context.Update(datosNegocio);
                     await _context.SaveChangesAsync();
                 }
