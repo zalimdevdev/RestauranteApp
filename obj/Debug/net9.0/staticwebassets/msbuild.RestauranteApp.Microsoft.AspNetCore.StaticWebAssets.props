@@ -90,6 +90,24 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\items\5d0155cc-12d7-4b2e-9474-3a48a032bb96_Copilot_20251109_153956.png'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\items\78ed543e-5799-4789-a490-ace560baf88f_Copilot_20251109_151934.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>RestauranteApp</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/RestauranteApp</BasePath>
+      <RelativePath>images/items/78ed543e-5799-4789-a490-ace560baf88f_Copilot_20251109_151934.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>jg6ro4wf33</Fingerprint>
+      <Integrity>jT4012pZGy6xDouWCDjWKrTadegwMxRC28A2M3DW0R0=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\items\78ed543e-5799-4789-a490-ace560baf88f_Copilot_20251109_151934.png'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\logos\078861cf-7fa9-4010-aae0-422878b3125f_Copilot_20251109_164343.png'))">
       <SourceType>Package</SourceType>
       <SourceId>RestauranteApp</SourceId>
