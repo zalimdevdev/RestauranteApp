@@ -9,6 +9,7 @@ using RestauranteApp.Models;
 using Rotativa.AspNetCore;
 using System.Data;
 using ClosedXML.Excel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RestauranteApp.Controllers
 {
@@ -46,6 +47,8 @@ namespace RestauranteApp.Controllers
         }
 
         // GET: Gastos/Create
+        [Authorize(Roles="ADMIN,GERENTE")]
+
         public IActionResult Create()
         {
             return View();

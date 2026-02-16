@@ -1,0 +1,178 @@
+@model RestauranteApp.ViewModels.TableroPosVM
+
+@{
+    ViewData["Title"] = "Tablero de Mesas - POS";
+}
+
+<div class="container-fluid">
+    <!-- Encabezado -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h2><i class="fas fa-th-large"></i> Tablero de Mesas</h2>
+        </div>
+        <div class="col-md-6 text-end">
+            <div class="btn-group" role="group">
+                <span class="badge bg-success m-2 p-2">Disponibles: @Model.MesasDisponibles</span>
+                <span class="badge bg-danger m-2 p-2">Ocupadas: @Model.MesasOcupadas</span>
+                <span class="badge bg-secondary m-2 p-2">Total: @Model.TotalMesas</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alertas -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- Tablero de Mesas -->
+    <div class="row">
+        @foreach (var mesa in Model.Mesas)
+        {
+            <div class="col-md-3 col-sm-4 col-6 mb-4">
+                <div class="card mesa-card @(mesa.Estado == "OCUPADA" ? "mesa-ocupada" : "mesa-disponible")" 
+                     onclick="seleccionarMesa(@mesa.MesaId)"
+                     style="cursor: pointer; min-height: 180px;">
+                    <div class="card-header text-center">
+                        <h4 class="mb-0">Mesa @mesa.NumeroMesa</h4>
+                        <small class="text-muted">@mesa.Ubicacion</small>
+                    </div>
+                    <div class="card-body text-center">
+                        @if (mesa.TieneOrdenActiva && mesa.OrdenActiva != null)
+                        {
+                            <!-- Mesa con orden activa -->
+                            <div class="mb-2">
+                                <span class="badge bg-warning text-dark">
+                                    <i class="fas fa-receipt"></i> Orden #@mesa.OrdenActiva.NumeroOrden
+                                </span>
+                            </div>
+                            <div class="mb-2">
+                                <strong>Estado:</strong> <br/>
+                                <span class="badge bg-@GetEstadoColor(mesa.OrdenActiva.Estado)">
+                                    @mesa.OrdenActiva.NombreEstado
+                                </span>
+                            </div>
+                            <div class="mb-2">
+                                <strong>Items:</strong> @mesa.OrdenActiva.CantidadItems
+                            </div>
+                            <div>
+                                <strong>Total:</strong> $@mesa.OrdenActiva.Total.ToString("N2")
+                            </div>
+                        }
+                        else
+                        {
+                            <!-- Mesa disponible -->
+                            <div class="display-4 mb-3">
+                                <i class="fas fa-chair"></i>
+                            </div>
+                            <p class="card-text">Capacidad: @mesa.Capacidad personas</p>
+                            <span class="badge bg-success">DISPONIBLE</span>
+                        }
+                    </div>
+                    <div class="card-footer text-center">
+                        @if (mesa.TieneOrdenActiva)
+                        {
+                            <a href="@Url.Action("DetallesOrden", "TableroPos", new { id = mesa.OrdenActiva.OrdenId })" 
+                               class="btn btn-primary btn-sm">
+                                <i class="fas fa-eye"></i> Ver Orden
+                            </a>
+                        }
+                        else
+                        {
+                            <form asp-action="AbrirOrden" asp-controller="TableroPos" method="post" style="display:inline;">
+                                <input type="hidden" name="mesaId" value="@mesa.MesaId" />
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    <i class="fas fa-plus"></i> Abrir Orden
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Modal para ver detalles de la orden -->
+<div class="modal fade" id="modalOrden" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Orden #<span id="modalNumeroOrden"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalContenido">
+                <!-- Contenido dinámico -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .mesa-card {
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .mesa-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .mesa-disponible {
+        border-left: 5px solid #28a745;
+    }
+    .mesa-ocupada {
+        border-left: 5px solid #dc3545;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        function seleccionarMesa(mesaId) {
+            // Lógica para seleccionar mesa
+            console.log('Mesa seleccionada:', mesaId);
+        }
+
+        // Función para abrir modal de orden
+        function abrirModalOrden(ordenId, numeroOrden) {
+            document.getElementById('modalNumeroOrden').textContent = numeroOrden;
+            
+            // Cargar contenido mediante AJAX
+            fetch(`/TableroPos/DetallesOrden/${ordenId}`)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('modalContenido').innerHTML = html;
+                    $('#modalOrden').modal('show');
+                });
+        }
+    </script>
+}
+
+@functions {
+    string GetEstadoColor(string estado)
+    {
+        return estado switch
+        {
+            "ABIERTA" => "primary",
+            "EN_PREPARACION" => "warning",
+            "SERVIDA" => "info",
+            "SOLICITA_CUENTA" => "purple",
+            "FACTURADA" => "secondary",
+            "CERRADA" => "success",
+            "CANCELADA" => "danger",
+            _ => "secondary"
+        };
+    }
+}

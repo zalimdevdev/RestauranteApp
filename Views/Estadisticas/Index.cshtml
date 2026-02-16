@@ -7,6 +7,87 @@
 
 <h1>Estadísticas de Ventas</h1>
 
+
+
+<!-- Gráficos de Ventas -->
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h3><i class="fas fa-chart-line"></i> Gráficos de Ventas</h3>
+    </div>
+</div>
+
+<!-- Gráfico Ventas del Día -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-calendar-day"></i> Ventas del Día</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.VentasDiarias.Any())
+                {
+                    <canvas id="graficoDiario"></canvas>
+                    <div class="mt-3 text-center">
+                        <h4 class="text-success">@Model.VentasDiarias.Sum(v => v.Ingresos).ToString("C")</h4>
+                        <p class="text-muted">@Model.VentasDiarias.Sum(v => v.CantidadVentas) ventas hoy</p>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-center">No hay ventas hoy.</p>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="fas fa-calendar-week"></i> Ventas de la Semana</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.VentasSemanales.Any())
+                {
+                    <canvas id="graficoSemanal"></canvas>
+                    <div class="mt-3 text-center">
+                        <h4 class="text-success">@Model.VentasSemanales.Sum(v => v.Ingresos).ToString("C")</h4>
+                        <p class="text-muted">@Model.VentasSemanales.Sum(v => v.CantidadVentas) ventas esta semana</p>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-center">No hay ventas esta semana.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Gráfico Ventas del Mes -->
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="fas fa-calendar-alt"></i> Ventas de los Últimos 12 Meses</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.VentasMensuales.Any())
+                {
+                    <canvas id="graficoMensual" style="max-height: 300px;"></canvas>
+                    <div class="mt-3 text-center">
+                        <h4 class="text-success">@Model.VentasMensuales.Sum(v => v.Ingresos).ToString("C")</h4>
+                        <p class="text-muted">@Model.VentasMensuales.Sum(v => v.CantidadVentas) ventas en los últimos 12 meses</p>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-center">No hay ventas en el período.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <form method="get" class="mb-4">
     <div class="row">
         <div class="col-md-3">
@@ -33,6 +114,7 @@
     </div>
 </form>
 
+<!-- Tablas de Productos -->
 <div class="row">
     <div class="col-md-6">
         <h3>Productos Más Vendidos</h3>
@@ -94,3 +176,201 @@
         }
     </div>
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Gráfico Diario
+        const ctxDiario = document.getElementById('graficoDiario').getContext('2d');
+        new Chart(ctxDiario, {
+            type: 'line',
+            data: {
+                labels: @Html.Raw(Json.Serialize(Model.VentasDiarias.Select(v => v.Etiqueta))),
+                datasets: [
+                    {
+                        label: 'Cantidad de Ventas',
+                        data: @Html.Raw(Json.Serialize(Model.VentasDiarias.Select(v => v.CantidadVentas))),
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        yAxisID: 'y',
+                        fill: true,
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Ingresos ($)',
+                        data: @Html.Raw(Json.Serialize(Model.VentasDiarias.Select(v => v.Ingresos))),
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        yAxisID: 'y1',
+                        fill: true,
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'Ventas'
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'Ingresos ($)'
+                        },
+                        grid: {
+                            drawOnChartArea: false,
+                        },
+                    },
+                }
+            }
+        });
+
+        // Gráfico Semanal
+        const ctxSemanal = document.getElementById('graficoSemanal').getContext('2d');
+        new Chart(ctxSemanal, {
+            type: 'line',
+            data: {
+                labels: @Html.Raw(Json.Serialize(Model.VentasSemanales.Select(v => v.Etiqueta))),
+                datasets: [
+                    {
+                        label: 'Cantidad de Ventas',
+                        data: @Html.Raw(Json.Serialize(Model.VentasSemanales.Select(v => v.CantidadVentas))),
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        yAxisID: 'y',
+                        fill: true,
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Ingresos ($)',
+                        data: @Html.Raw(Json.Serialize(Model.VentasSemanales.Select(v => v.Ingresos))),
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        yAxisID: 'y1',
+                        fill: true,
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'Ventas'
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'Ingresos ($)'
+                        },
+                        grid: {
+                            drawOnChartArea: false,
+                        },
+                    },
+                }
+            }
+        });
+
+        // Gráfico Mensual
+        const ctxMensual = document.getElementById('graficoMensual').getContext('2d');
+        new Chart(ctxMensual, {
+            type: 'line',
+            data: {
+                labels: @Html.Raw(Json.Serialize(Model.VentasMensuales.Select(v => v.Etiqueta))),
+                datasets: [
+                    {
+                        label: 'Cantidad de Ventas',
+                        data: @Html.Raw(Json.Serialize(Model.VentasMensuales.Select(v => v.CantidadVentas))),
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        yAxisID: 'y',
+                        fill: true,
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Ingresos ($)',
+                        data: @Html.Raw(Json.Serialize(Model.VentasMensuales.Select(v => v.Ingresos))),
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                        yAxisID: 'y1',
+                        fill: true,
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'Ventas'
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'Ingresos ($)'
+                        },
+                        grid: {
+                            drawOnChartArea: false,
+                        },
+                    },
+                }
+            }
+        });
+    </script>
+}
