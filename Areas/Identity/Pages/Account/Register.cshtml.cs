@@ -16,7 +16,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
@@ -26,7 +25,6 @@ namespace RestauranteApp.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserStore<IdentityUser> _userStore;
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
@@ -34,14 +32,12 @@ namespace RestauranteApp.Areas.Identity.Pages.Account
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
-            RoleManager<IdentityRole> roleManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
             _userManager = userManager;
-            _roleManager = roleManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
@@ -69,11 +65,6 @@ namespace RestauranteApp.Areas.Identity.Pages.Account
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
         /// <summary>
-        ///     Lista de roles disponibles para seleccionar
-        /// </summary>
-        public List<SelectListItem> RolesList { get; set; } = new List<SelectListItem>();
-
-        /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
@@ -86,9 +77,6 @@ namespace RestauranteApp.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "Nombre de Usuario")]
             public string UserName { get; set; }
-
-
-
 
             [Required]
             [EmailAddress]
@@ -113,12 +101,6 @@ namespace RestauranteApp.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-
-            /// <summary>
-            ///     Rol seleccionado para el usuario
-            /// </summary>
-            [Display(Name = "Rol")]
-            public string? SelectedRole { get; set; }
         }
 
 
@@ -126,14 +108,6 @@ namespace RestauranteApp.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            
-            // Cargar roles disponibles
-            var roles = _roleManager.Roles.ToList();
-            RolesList = roles.Select(r => new SelectListItem
-            {
-                Value = r.Name,
-                Text = r.Name
-            }).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -142,30 +116,12 @@ namespace RestauranteApp.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-              //  var user = CreateUser();
-
                 var user = new IdentityUser{ UserName = Input.UserName, Email = Input.Email};
-
-
-              // await _userStore.SetUserNameAsync(UserName, Input.UserName, Email, Input.Email, CancellationToken.None);
-              // await _emailStore.SetEmailAsync(UserName, Input.UserName, Email, Input.Email, CancellationToken.None);
-              //  await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-
-                    // Asignar rol si se seleccionó uno
-                    if (!string.IsNullOrEmpty(Input.SelectedRole))
-                    {
-                        var roleExists = await _roleManager.RoleExistsAsync(Input.SelectedRole);
-                        if (roleExists)
-                        {
-                            await _userManager.AddToRoleAsync(user, Input.SelectedRole);
-                            _logger.LogInformation("User assigned to role: {Role}", Input.SelectedRole);
-                        }
-                    }
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

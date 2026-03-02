@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using Rotativa.AspNetCore;
 using Microsoft.AspNetCore.Identity;
-using RestauranteApp.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,9 +17,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
-
-// Registrar servicios de negocio
-builder.Services.AddScoped<OrdenService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();

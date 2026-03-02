@@ -18,6 +18,14 @@ namespace RestauranteApp.Controllers
             _context = context;
         }
 
+
+        public IActionResult GestionVentaMesa()
+    {
+        return View();
+    }
+
+
+
         // GET: Mesas
         public async Task<IActionResult> Index()
         {
