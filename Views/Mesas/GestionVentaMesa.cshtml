@@ -1,15 +1,76 @@
-
+@model RestauranteApp.ViewModels.GestionMesasVM
 @{
-
-    ViewData["Title"] = "Gestion GestionVentaMesa";
+    ViewData["Title"] = "Gestion de Mesas";
 }
 
+<h2>Control de Mesas</h2>
 
-<hr>
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
 
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
 
-  <main class="dashboard">
+<div class="row">
+@foreach (var mesa in Model.Mesas)
+{
+    <div class="col-md-4 mb-3">
+        <div class="card @((mesa.Estado == "Ocupada") ? "border-warning" : "border-success")">
+            <div class="card-header">
+                <h5 class="mb-0">Mesa @mesa.NumeroMesa</h5>
+                <span class="badge @((mesa.Estado == "Ocupada") ? "bg-warning" : "bg-success")">@mesa.Estado</span>
+            </div>
+            <div class="card-body">
+                <p><strong>Capacidad:</strong> @mesa.Capacidad personas</p>
+                
+                @if (mesa.Estado?.ToLower() == "ocupada" && mesa.TieneVentaActiva)
+                {
+                    <p>
+                        <strong>Factura #:</strong> @mesa.FacturaId<br>
+                        <strong>Total:</strong> C$ @mesa.MontoTotal?.ToString("N2")<br>
+                        <strong>Metodo:</strong> @mesa.MetodoPago
+                    </p>
+                }
+            </div>
+            <div class="card-footer">
+                @if (mesa.Estado?.ToLower() == "disponible")
+                {
+                    <form asp-action="HacerOrden" asp-route-mesaId="@mesa.MesaId" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-primary w-100">Hacer Orden</button>
+                    </form>
+                }
+                else if (mesa.Estado?.ToLower() == "ocupada")
+                {
+                    <div class="d-grid gap-2">
+                        <a asp-controller="Facturas" asp-action="Edit" asp-route-id="@mesa.FacturaId" class="btn btn-warning btn-sm">Editar Venta</a>
+                        <form asp-action="CerrarVenta" asp-route-mesaId="@mesa.MesaId" method="post">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-success btn-sm w-100" onclick="return confirm('¿Cerrar venta y liberar mesa?');">Cerrar Venta</button>
+                        </form>
+                        <form asp-action="CancelarVenta" asp-route-mesaId="@mesa.MesaId" method="post">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger btn-sm w-100" onclick="return confirm('¿Cancelar venta? Se eliminara la factura.');">Cancelar Venta</button>
+                        </form>
+                    </div>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">@mesa.Estado</span>
+                }
+            </div>
+        </div>
+    </div>
+}
+</div>
 
-<h2>Control de Mesas/Ventas<h2>
-
-  </main>
+@if (!Model.Mesas.Any())
+{
+    <div class="alert alert-info">
+        No hay mesas registradas. <a asp-controller="Mesas" asp-action="Create">Crear una mesa</a>
+    </div>
+}

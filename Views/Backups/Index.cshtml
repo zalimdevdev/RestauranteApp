@@ -1,0 +1,370 @@
+@model IEnumerable<RestauranteApp.Models.BackupRegistro>
+
+@{
+    ViewData["Title"] = "Gestión de Backups";
+}
+
+@Html.AntiForgeryToken()
+
+<div class="container-fluid">
+    <h1 class="mb-4"><i class="fas fa-database me-2"></i>Gestión de Backups</h1>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i>@TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>@TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- Sección de Crear Backup -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-plus-circle me-2"></i>Crear Nuevo Backup</h5>
+                </div>
+                <div class="card-body">
+                    <!-- Backup Completo -->
+                    <form asp-action="CrearBackupCompleto" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Backup Completo</label>
+                            <p class="text-muted small">Crea una copia de seguridad de todos los datos del sistema.</p>
+                            <div class="input-group">
+                                <input type="text" name="descripcion" class="form-control" placeholder="Descripción opcional">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save me-1"></i> Crear
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <hr>
+                    <!-- Backup Parcial -->
+                    <label class="form-label">Backup Parcial</label>
+                    <p class="text-muted small">Crea una copia de seguridad de módulos específicos.</p>
+                    
+                    <form asp-action="CrearBackupParcial" method="post" class="row g-2">
+                        <div class="col-md-5">
+                            <select name="tipo" class="form-select" required>
+                                <option value="">Seleccionar módulo...</option>
+                                <option value="Clientes">Clientes</option>
+                                <option value="Menus">Menús y Categorías</option>
+                                <option value="Facturas">Facturas</option>
+                                <option value="Pedidos">Pedidos</option>
+                                <option value="Gastos">Gastos</option>
+                                <option value="Ingredientes">Ingredientes</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" name="descripcion" class="form-control" placeholder="Descripción opcional">
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-info w-100">
+                                <i class="fas fa-save me-1"></i> Crear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-file-import me-2"></i>Importar Backup</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="ImportarBackup" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label class="form-label">Seleccionar archivo de backup</label>
+                            <input type="file" name="archivo" class="form-control" accept=".json" required>
+                            <small class="text-muted">Archivos permitidos: .json</small>
+                        </div>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-upload me-1"></i> Importar Backup
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card shadow mt-3">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Información</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check text-success me-2"></i>Los backups se guardan en la carpeta <code>/wwwroot/backups</code></li>
+                        <li><i class="fas fa-check text-success me-2"></i>Puede descargar los backups para guardarlos externamente</li>
+                        <li><i class="fas fa-check text-success me-2"></i>La restauración sobrescribirá los datos actuales</li>
+                        <li><i class="fas fa-exclamation-triangle text-warning me-2"></i>Se recomienda hacer backup antes de restaurar</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lista de Backups -->
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0"><i class="fas fa-history me-2"></i>Backups Realizados</h5>
+        </div>
+        <div class="card-body">
+            @if (Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped" id="tableBackups">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Tipo</th>
+                                <th>Archivo</th>
+                                <th>Tamaño</th>
+                                <th>Estado</th>
+                                <th>Creador</th>
+                                <th>Descripción</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var backup in Model)
+                            {
+                                <tr>
+                                    <td>@backup.FechaCreacion.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td>
+                                        @if (backup.TipoBackup == "Completo")
+                                        {
+                                            <span class="badge bg-primary">Completo</span>
+                                        }
+                                        else if (backup.TipoBackup == "Importado")
+                                        {
+                                            <span class="badge bg-secondary">Importado</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-info">@backup.TipoBackup</span>
+                                        }
+                                    </td>
+                                    <td><code class="small">@backup.NombreArchivo</code></td>
+                                    <td>@FormatFileSize(backup.TamanoBytes)</td>
+                                    <td>
+                                        @if (backup.Estado == "Completado")
+                                        {
+                                            <span class="badge bg-success"><i class="fas fa-check me-1"></i>Completado</span>
+                                        }
+                                        else if (backup.Estado == "Restaurando")
+                                        {
+                                            <span class="badge bg-warning"><i class="fas fa-spinner fa-spin me-1"></i>Restaurando</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger"><i class="fas fa-times me-1"></i>Fallido</span>
+                                        }
+                                    </td>
+                                    <td>@backup.CreadoPor</td>
+                                    <td>@backup.Descripcion</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a asp-action="Descargar" asp-route-id="@backup.Id" class="btn btn-sm btn-success" title="Descargar">
+                                                <i class="fas fa-download"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-warning" 
+                                                    onclick="confirmarRestauracion(@backup.Id, '@backup.NombreArchivo')" 
+                                                    title="Restaurar">
+                                                <i class="fas fa-redo"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-danger" 
+                                                    onclick="confirmarEliminacion(@backup.Id, '@backup.NombreArchivo')" 
+                                                    title="Eliminar">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-5">
+                    <i class="fas fa-database fa-4x text-muted mb-3"></i>
+                    <h4 class="text-muted">No hay backups realizados</h4>
+                    <p class="text-muted">Crea tu primer backup usando el formulario de arriba.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@functions {
+    string FormatFileSize(long bytes)
+    {
+        string[] suffixes = { "B", "KB", "MB", "GB" };
+        int counter = 0;
+        decimal number = bytes;
+        while (Math.Round(number / 1024) >= 1 && counter < suffixes.Length - 1)
+        {
+            number /= 1024;
+            counter++;
+        }
+        return $"{number:n2} {suffixes[counter]}";
+    }
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#tableBackups').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                },
+                order: [[0, 'desc']]
+            });
+        });
+
+        function confirmarRestauracion(id, nombre) {
+            Swal.fire({
+                title: '¿Restaurar Backup?',
+                html: `¿Está seguro que desea restaurar el backup <strong>${nombre}</strong>?<br><br><span class="text-warning">Esta acción sobrescribirá todos los datos actuales.</span>`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ffc107',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: '<i class="fas fa-redo me-1"></i> Restaurar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    iniciarRestauracion(id);
+                }
+            });
+        }
+
+        function iniciarRestauracion(id) {
+            // Mostrar modal de progreso
+            Swal.fire({
+                title: 'Restaurando Backup',
+                html: `
+                    <div class="text-center">
+                        <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+                            <span class="visually-hidden">Cargando...</span>
+                        </div>
+                        <p class="mb-2">Restaurando datos del backup...</p>
+                        <div class="progress" style="height: 30px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                                 role="progressbar" style="width: 0%" id="progressBar">
+                                0%
+                            </div>
+                        </div>
+                        <p class="mt-3 text-muted" id="statusText">Por favor espere, esto puede tomar unos momentos...</p>
+                    </div>
+                `,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showCancelButton: false,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'swal2-popup-custom'
+                }
+            });
+
+            // Animar la barra de progreso
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 12;
+                if (progress > 85) progress = 85;
+                $('#progressBar').css('width', progress + '%').text(Math.round(progress) + '%');
+            }, 600);
+
+            // Obtener el token antiforgery
+            var token = $('input[name="__RequestVerificationToken"]').val();
+
+            // Enviar solicitud de restauración
+            $.ajax({
+                url: '@Url.Action("RestaurarBackup")',
+                type: 'POST',
+                headers: {
+                    'RequestVerificationToken': token
+                },
+                data: { id: id },
+                dataType: 'json',
+                success: function(response) {
+                    clearInterval(progressInterval);
+                    $('#progressBar').css('width', '100%').text('100%');
+                    
+                    if (response && response.success) {
+                        $('#statusText').html('<span class="text-success"><i class="fas fa-check-circle fa-2x"></i><br><strong>¡Restauración completada!</strong></span>');
+                        setTimeout(() => {
+                            Swal.fire({
+                                title: '¡Restauración Exitosa!',
+                                text: 'Los datos han sido restaurados correctamente.',
+                                icon: 'success',
+                                confirmButtonText: 'Aceptar'
+                            }).then(() => location.reload());
+                        }, 1500);
+                    } else {
+                        var errorMsg = response && response.message ? response.message : 'No se pudo completar la restauración';
+                        $('#statusText').html('<span class="text-danger"><i class="fas fa-times-circle fa-2x"></i><br><strong>Error:</strong> ' + errorMsg + '</span>');
+                        setTimeout(() => {
+                            Swal.fire('Error', errorMsg, 'error');
+                        }, 3000);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    clearInterval(progressInterval);
+                    $('#progressBar').css('width', '100%').text('100%');
+                    
+                    // Intentar parsear la respuesta
+                    var errorMsg = error;
+                    try {
+                        if (xhr.responseText) {
+                            var response = JSON.parse(xhr.responseText);
+                            if (response.message) {
+                                errorMsg = response.message;
+                            }
+                        }
+                    } catch (e) {
+                        // Si no es JSON, usar el texto original
+                        errorMsg = xhr.responseText || error;
+                    }
+                    
+                    $('#statusText').html('<span class="text-danger"><i class="fas fa-times-circle fa-2x"></i><br><strong>Error de conexión:</strong> ' + errorMsg + '</span>');
+                    setTimeout(() => {
+                        Swal.fire('Error', 'Error de conexión: ' + errorMsg, 'error');
+                    }, 3000);
+                }
+            });
+        }
+
+        function confirmarEliminacion(id, nombre) {
+            Swal.fire({
+                title: '¿Eliminar Backup?',
+                html: `¿Está seguro que desea eliminar el backup <strong>${nombre}</strong>?<br><br><span class="text-danger">Esta acción no se puede deshacer.</span>`,
+                icon: 'error',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: '<i class="fas fa-trash me-1"></i> Eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.post('@Url.Action("EliminarBackup")', { id: id }, function(response) {
+                        if (response.success) {
+                            Swal.fire('Eliminado', response.message, 'success').then(() => location.reload());
+                        } else {
+                            Swal.fire('Error', response.message, 'error');
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}

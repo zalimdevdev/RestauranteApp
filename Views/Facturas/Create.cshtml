@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "Registrar Venta";
     var priceJson = JsonSerializer.Serialize(Model.ItemPrecios ?? new Dictionary<int, decimal>());
+    var mesaPreseleccionada = ViewBag.MesaPreseleccionada as int?;
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -22,7 +23,7 @@
 
         <div class="col-md-4">
             <label class="form-label" for="MesaId">Mesa</label>
-            <select asp-for="MesaId" class="form-select" asp-items="Model.Mesas">
+            <select asp-for="MesaId" class="form-select" asp-items="Model.Mesas" id="MesaId">
                 <option value="">---</option>
             </select>
         </div>
@@ -121,6 +122,14 @@
 
     <script>
         const priceMap = @Html.Raw(priceJson);
+        const mesaPreseleccionada = @mesaPreseleccionada;
+
+        // Pre-seleccionar la mesa cuando se carga la página
+        $(function () {
+            if (mesaPreseleccionada) {
+                $("#MesaId").val(mesaPreseleccionada);
+            }
+        });
 
         function addRow(initialItemId = "") {
             const tbody = $("#tblDetalles tbody");
@@ -226,8 +235,8 @@
                         if (response.success) {
                             // Abrir PDF en nueva ventana
                             window.open('/Facturas/FacturaPdf/' + response.facturaId, '_blank');
-                            // Redirigir a Index
-                            window.location.href = '/Facturas/Index';
+                            // Redirigir a GestionVentaMesa
+                            window.location.href = '/Mesas/GestionVentaMesa';
                         } else {
                             alert('Error al guardar la factura.');
                         }

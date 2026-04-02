@@ -1,0 +1,34 @@
+{
+  "fechaBackup": "2026-03-22T20:12:20.919504-06:00",
+  "tipoBackup": "Gastos",
+  "gastos": [
+    {
+      "gastoId": 1,
+      "descripcion": "Gas",
+      "monto": 480.00,
+      "fechaGasto": "2025-08-20T10:55:00",
+      "categoriaGasto": "Combustible"
+    },
+    {
+      "gastoId": 2,
+      "descripcion": "Energia",
+      "monto": 790.00,
+      "fechaGasto": "2025-08-20T16:07:00",
+      "categoriaGasto": "Servicio"
+    },
+    {
+      "gastoId": 6,
+      "descripcion": "alquiler",
+      "monto": 5345.00,
+      "fechaGasto": "2026-03-22T19:40:00",
+      "categoriaGasto": "alquiler"
+    },
+    {
+      "gastoId": 11,
+      "descripcion": "aseo",
+      "monto": 480.00,
+      "fechaGasto": "2026-03-10T20:12:00",
+      "categoriaGasto": "Servicio"
+    }
+  ]
+}

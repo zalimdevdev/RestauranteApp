@@ -47,7 +47,7 @@ namespace RestauranteApp.Controllers
         }
 
         // GET: Facturas/Create
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(int? mesaId)
         {
             // Obtener items activos (ItemMenu) con su precio
             var items = await _context.ItemsMenu
@@ -64,8 +64,15 @@ namespace RestauranteApp.Controllers
                     .ToListAsync(),
                 Mesas = await _context.Mesas
                     .Select(m => new SelectListItem { Value = m.MesaId.ToString(), Text = m.NumeroMesa.ToString() })
-                    .ToListAsync()
+                    .ToListAsync(),
+                MesaId = mesaId // Pre-seleccionar la mesa si se proporciona
             };
+
+            // Si viene de una mesa específica, pasar el ID a la vista
+            if (mesaId.HasValue)
+            {
+                ViewBag.MesaPreseleccionada = mesaId.Value;
+            }
 
             return View(vm);
         }
@@ -156,6 +163,17 @@ namespace RestauranteApp.Controllers
             };
 
             _context.Facturas.Add(factura);
+            
+            // Si hay una mesa seleccionada, marcarla como ocupada
+            if (vm.MesaId.HasValue)
+            {
+                var mesa = await _context.Mesas.FindAsync(vm.MesaId.Value);
+                if (mesa != null)
+                {
+                    mesa.Estado = "Ocupada";
+                }
+            }
+            
             await _context.SaveChangesAsync();
 
             // asignar facturaId a cada detalle y guardar
