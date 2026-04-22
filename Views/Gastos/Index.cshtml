@@ -1,4 +1,3 @@
-html
 
 @model IEnumerable<RestauranteApp.Models.Gasto>
 
@@ -6,10 +5,10 @@ html
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Registros de Gastos</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-info">Create New</a>
     <a asp-action="GeneratePdf" class="btn btn-success" target="_blank">Generar Reporte PDF</a>
         <a asp-action="ExportarExcel" class="btn btn-info">Exportar a Excel</a>
 </p>
@@ -47,9 +46,11 @@ html
                 @Html.DisplayFor(modelItem => item.CategoriaGasto)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.GastoId">Edit</a> |
+
+                <a type="button" asp-action="Edit" asp-route-id="@item.GastoId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.GastoId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.GastoId">Delete</a>
+
             </td>
         </tr>
 }

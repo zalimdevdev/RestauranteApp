@@ -5,20 +5,20 @@
       "PackagePath": "staticwebassets\\RestauranteApp.614d5fsc6n.bundle.scp.css"
     },
     {
-      "Id": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\backups\\backup_Completo_20260322_201335.json",
-      "PackagePath": "staticwebassets\\backups\\backup_Completo_20260322_201335.json"
-    },
-    {
-      "Id": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\backups\\backup_Gastos_20260322_201220.json",
-      "PackagePath": "staticwebassets\\backups\\backup_Gastos_20260322_201220.json"
-    },
-    {
       "Id": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
       "Id": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\items\\0c4214f1-3ac8-415f-9895-a4521b6a5867_g80.jpg",
+      "PackagePath": "staticwebassets\\images\\items\\0c4214f1-3ac8-415f-9895-a4521b6a5867_g80.jpg"
+    },
+    {
+      "Id": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\items\\26a4221b-7202-4ffb-ae8e-1c5529b2440a_Copilot_20251109_153219.png",
+      "PackagePath": "staticwebassets\\images\\items\\26a4221b-7202-4ffb-ae8e-1c5529b2440a_Copilot_20251109_153219.png"
     },
     {
       "Id": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\items\\2bb1a13a-0ba5-4f25-a373-515541af60c2_Copilot_20251109_151934.png",

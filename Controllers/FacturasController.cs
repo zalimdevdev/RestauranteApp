@@ -49,9 +49,8 @@ namespace RestauranteApp.Controllers
         // GET: Facturas/Create
         public async Task<IActionResult> Create(int? mesaId)
         {
-            // Obtener items activos (ItemMenu) con su precio
+            // Obtener todos los items (ItemMenu) con su precio
             var items = await _context.ItemsMenu
-                .Where(i => i.Estado == "Activo")
                 .Select(i => new { i.ItemId, i.NombreItem, i.Precio })
                 .ToListAsync();
 
@@ -197,9 +196,8 @@ namespace RestauranteApp.Controllers
 
             if (factura == null) return NotFound();
 
-            // Obtener items activos
+            // Obtener todos los items
             var items = await _context.ItemsMenu
-                .Where(i => i.Estado == "Activo")
                 .Select(i => new { i.ItemId, i.NombreItem, i.Precio })
                 .ToListAsync();
 

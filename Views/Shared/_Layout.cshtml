@@ -4,7 +4,7 @@
     var datosNegocio = DbContext.DatosNegocios.FirstOrDefault();
 }
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,8 +20,8 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
+        <nav class="navbar navbar-expand-sm custom-navbar  box-shadow mb-3" >
+            <div class="container-fluid">    
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     @if (!string.IsNullOrEmpty(datosNegocio?.LogoUrl))
                     {
@@ -39,6 +39,78 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index" >Home</a>
                         </li>
                         <!-- Punto de entrada al POS -->
+
+    <!-- OPERACIÓN -->
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown">
+             Operación
+        </a>
+      
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" asp-controller="Mesas">Mesas</a></li>
+          
+            <li><a class="dropdown-item" asp-controller="Mesas" asp-action="GestionVentaMesa" asp-action="Index">Gestión de Mesas</a></li>
+          
+            <li><a class="dropdown-item" asp-controller="ItemsMenu" asp-action="Index">Menú</a></li>
+            <li><a class="dropdown-item" asp-controller="ItemsMenu"  asp-action="Create"  >+ Nuevo Platillo</a></li>
+         
+            <li><a class="dropdown-item" asp-controller="CategoriaMenus">Categorías</a></li>
+            <li><a class="dropdown-item" asp-controller="CategoriaMenus" asp-action="Create">+ Nueva Categoria</a></li>
+        </ul>
+    </li>
+
+    <!-- VENTAS -->
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown">
+             Ventas
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" asp-controller="Facturas">Facturas</a></li>
+            <li><a class="dropdown-item" asp-controller="Clientes">Clientes</a></li>
+             <li><a class="dropdown-item" asp-controller="Clientes" asp-action="Create" >+ Nuevo Cliente</a></li>
+        </ul>
+    </li>
+
+    <!-- ADMINISTRACIÓN -->
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown">
+             Administración
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" asp-controller="Empleados">Empleados</a></li>
+            <li><a class="dropdown-item" asp-controller="Empleados" asp-action="Create">+ Nuevo Empleado</a></li>
+            <li><a class="dropdown-item" asp-controller="Gastos">Gastos</a></li>
+            <li><a class="dropdown-item" asp-controller="Gastos" asp-action="Create">+ Nuevo Gasto</a></li>
+        </ul>
+    </li>
+
+    <!-- ANÁLISIS -->
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-controller="Estadisticas">
+             Estadísticas
+        </a>
+    </li>
+
+    <!-- SISTEMA -->
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown">
+            ⚙️ Sistema
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" asp-controller="UserRol">Usuarios y Roles</a></li>
+               <hr>
+            <li><a class="dropdown-item" asp-controller="Backups">Backups</a></li>
+
+
+
+
+        </ul>
+    </li>
+
+</div>
+
+<!--
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="CategoriaMenus" asp-action="Index">Categorias</a>
                         </li>
@@ -54,15 +126,27 @@
 
                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Facturas" asp-action="Index">Facturas   </a>
-                        </li>         
+                        </li> 
+
+
+
+
+
+
+
+ 
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Gastos" asp-action="Index">Gastos </a>
                         </li>        
 
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Ingredientes" asp-action="Index">Ingredientes </a>
-                        </li>        
+                        </li> 
+
+
+       
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="ItemsMenu" asp-action="Index">ItemsMenu</a>
@@ -82,6 +166,9 @@
                              <a class="nav-link text-dark" asp-area="" asp-controller="Pedidos" asp-action="Index">Pedidos</a>
                          </li>
 
+
+
+
                          <li class="nav-item">
                              <a class="nav-link text-dark" asp-area="" asp-controller="Estadisticas" asp-action="Index">Estadísticas</a>
                          </li>
@@ -93,17 +180,21 @@
                          <li class="nav-item">
                              <a class="nav-link text-dark" asp-area="" asp-controller="Backups" asp-action="Index">Backups</a>
                          </li>
+-->
 
                      </ul>
 
-                    <partial name="_LoginPartial" />
 
+                                                <partial name="_LoginPartial" />
                 </div>
+
+
             </div>
+
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3" >
             @RenderBody()
         </main>
     </div>

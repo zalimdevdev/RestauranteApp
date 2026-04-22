@@ -1,41 +1,5 @@
 ﻿<Project>
   <ItemGroup>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\backups\backup_Completo_20260322_201335.json'))">
-      <SourceType>Package</SourceType>
-      <SourceId>RestauranteApp</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/RestauranteApp</BasePath>
-      <RelativePath>backups/backup_Completo_20260322_201335.json</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>fokb4j0qc9</Fingerprint>
-      <Integrity>kZI0W67Wgr3eatuvuS8ZFmayaD0VqEWwLL019F0iTF0=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\backups\backup_Completo_20260322_201335.json'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\backups\backup_Gastos_20260322_201220.json'))">
-      <SourceType>Package</SourceType>
-      <SourceId>RestauranteApp</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/RestauranteApp</BasePath>
-      <RelativePath>backups/backup_Gastos_20260322_201220.json</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>fvrzpgqr6q</Fingerprint>
-      <Integrity>29B6iefY5rF62d3p/LgRPlNgwO9vT11ekRnrpZ9ltHs=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\backups\backup_Gastos_20260322_201220.json'))</OriginalItemSpec>
-    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))">
       <SourceType>Package</SourceType>
       <SourceId>RestauranteApp</SourceId>
@@ -48,8 +12,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>2o4ayd71yp</Fingerprint>
-      <Integrity>3mMpN3jSQ9O32rqy9pQIkkY9bW/thaXTp/95q6HRtTc=</Integrity>
+      <Fingerprint>cqil927vv8</Fingerprint>
+      <Integrity>FHONy6UswHNkoovuuHwQDWTWImwlset/v3/QQRJx+XM=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</OriginalItemSpec>
@@ -71,6 +35,42 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\items\0c4214f1-3ac8-415f-9895-a4521b6a5867_g80.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>RestauranteApp</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/RestauranteApp</BasePath>
+      <RelativePath>images/items/0c4214f1-3ac8-415f-9895-a4521b6a5867_g80.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>wqyk8omdjq</Fingerprint>
+      <Integrity>6PRaGStJWVJ4DE5CquVLUQFd8yLbqxx+8pcqJ4+TDkM=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\items\0c4214f1-3ac8-415f-9895-a4521b6a5867_g80.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\items\26a4221b-7202-4ffb-ae8e-1c5529b2440a_Copilot_20251109_153219.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>RestauranteApp</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/RestauranteApp</BasePath>
+      <RelativePath>images/items/26a4221b-7202-4ffb-ae8e-1c5529b2440a_Copilot_20251109_153219.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>yio6bsu0f6</Fingerprint>
+      <Integrity>VoNc3U6ueWeYJphQ3CcqjmcfzQss2YiiPnoCZ4k8tdA=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\items\26a4221b-7202-4ffb-ae8e-1c5529b2440a_Copilot_20251109_153219.png'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\items\2bb1a13a-0ba5-4f25-a373-515541af60c2_Copilot_20251109_151934.png'))">
       <SourceType>Package</SourceType>

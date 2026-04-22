@@ -38,7 +38,7 @@ body {
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: #f5f5fa;
+  background: #ffffff;
   color: #333;
 }
 
@@ -88,13 +88,15 @@ body {
 }
 
 .card-neo {
-  background: #f5f5fa;
+  background: linear-gradient(145deg, #ffffff, #eec3c3);
+
   border-radius: 20px;
   padding: 25px;
   text-align: center;
   transition: 0.3s;
-  box-shadow: 5px 5px 10px #e0e0e5,
-              -5px -5px 10px #ffffff;
+  box-shadow:  5px 5px 10px #bebebe,
+  -5px -5px 10px #ffffff;
+
 }
 
 .card-neo:hover {
@@ -131,13 +133,15 @@ body {
 
 /* Botones */
 .btn {
+  border: none;
   padding: 10px 20px;
   border-radius: 12px;
   text-decoration: none;
   color: #555;
-  background: #f5f5fa;
+  background: linear-gradient(315deg, #ebebeb, #ffffff);
   font-weight: bold;
-  box-shadow: 5px 5px 10px #e0e0e5, -5px -5px 10px #ffffff;
+  box-shadow:  5px 5px 10px #d9d9d9,
+  -5px -5px 10px #ffffff;
   transition: all 0.2s ease-in-out;
 }
 .btn:hover {
@@ -166,7 +170,7 @@ body {
 .neo-table {
   width: 100%;
   border-collapse: collapse;
-  background: #f5f5fa;
+  background: #ffffff;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 8px 8px 16px #e0e0e5, -8px -8px 16px #ffffff;
@@ -177,7 +181,7 @@ body {
   color: #4f4e5b;
 }
 .neo-table thead {
-  background: #f0f0f0;
+  background: #ffdede;
   font-weight: bold;
 }
 
@@ -208,5 +212,46 @@ body {
   text-decoration: none;
   color: inherit;
   display: block;
+}
+
+.dropdown-menu {
+  border: none;
+  border-radius: 10px; /* un poco más redondeado para suavidad */
+  background: #ffd7d1;
+  box-shadow:  5px 5px 6px #e3bfba,
+               -5px -5px 6px #ffefe8;
+  padding: 10px; /* espacio interno para que los items no queden pegados */
+
+}
+
+.dropdown-item {
+  border-radius: 6px;
+  padding: 8px 15px;
+  color: #5a3e36; /* tono marrón suave para contraste */
+  transition: all 0.2s ease-in-out;
+}
+
+.dropdown-item:hover {
+  background: linear-gradient(225deg, #ffe6e0, #f7d9d2);
+  box-shadow: inset -3px 3px 6px #d9b7b2,
+              inset 3px -3px 6px #fff7f0;
+}
+
+
+.custom-navbar {
+  border: none; /* sin borde */
+  border-radius: 10px;
+  background: linear-gradient(315deg, #f5f6ff, #e6cece);
+  box-shadow:  -10px -10px 50px #d9c3c3,
+               10px 10px 50px #ffffff;
+}
+
+.nav-item{
+  margin-right: 8px;
+  border: none;
+  border-radius: 5px;
+  background: #ffd7d1;
+  box-shadow:  5px 5px 6px #e3bfba,
+               -5px -5px 6px #ffefe8;
 }
 

@@ -26,31 +26,31 @@
             </div>
             <div class="card-body">
                 <p><strong>Capacidad:</strong> @mesa.Capacidad personas</p>
-                
-                @if (mesa.Estado?.ToLower() == "ocupada" && mesa.TieneVentaActiva)
+
+                @if (mesa.Estado == "Ocupada" && mesa.TieneVentaActiva)
                 {
                     <p>
-                        <strong>Factura #:</strong> @mesa.FacturaId<br>
+                        <strong>Orden #:</strong> @mesa.FacturaId<br>
                         <strong>Total:</strong> C$ @mesa.MontoTotal?.ToString("N2")<br>
-                        <strong>Metodo:</strong> @mesa.MetodoPago
+                        <strong>Método:</strong> @mesa.MetodoPago
                     </p>
                 }
             </div>
             <div class="card-footer">
-                @if (mesa.Estado?.ToLower() == "disponible")
+                @if (mesa.Estado == "Disponible")
                 {
                     <form asp-action="HacerOrden" asp-route-mesaId="@mesa.MesaId" method="post">
                         @Html.AntiForgeryToken()
                         <button type="submit" class="btn btn-primary w-100">Hacer Orden</button>
                     </form>
                 }
-                else if (mesa.Estado?.ToLower() == "ocupada")
+                else if (mesa.Estado == "Ocupada")
                 {
                     <div class="d-grid gap-2">
                         <a asp-controller="Facturas" asp-action="Edit" asp-route-id="@mesa.FacturaId" class="btn btn-warning btn-sm">Editar Venta</a>
                         <form asp-action="CerrarVenta" asp-route-mesaId="@mesa.MesaId" method="post">
                             @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-success btn-sm w-100" onclick="return confirm('¿Cerrar venta y liberar mesa?');">Cerrar Venta</button>
+                            <button type="submit" class="btn btn-success btn-sm w-100" onclick="return confirm('¿Cerrar orden y liberar mesa?');">Cerrar Orden</button>
                         </form>
                         <form asp-action="CancelarVenta" asp-route-mesaId="@mesa.MesaId" method="post">
                             @Html.AntiForgeryToken()

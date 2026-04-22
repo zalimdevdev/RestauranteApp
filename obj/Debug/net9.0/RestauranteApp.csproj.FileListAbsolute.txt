@@ -637,7 +637,6 @@ d:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Deb
 d:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Debug\net9.0\compressed\nezrqnk58p-muycvpuwrr.gz
 d:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Debug\net9.0\compressed\v0zgfp0y55-87fc7y1x7t.gz
 d:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Debug\net9.0\compressed\yfc7ypekbg-mlv21k5csn.gz
-d:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Debug\net9.0\compressed\z6spo0zthg-2o4ayd71yp.gz
 d:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Debug\net9.0\compressed\y6s2tk7yro-61n19gt1b8.gz
 d:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Debug\net9.0\compressed\o64d42ot3y-xtxxf3hu2r.gz
 d:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Debug\net9.0\compressed\masqpkrw5o-bqjiyaj88i.gz
@@ -716,5 +715,4 @@ d:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Deb
 d:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Debug\net9.0\RestauranteApp.pdb
 d:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Debug\net9.0\RestauranteApp.genruntimeconfig.cache
 d:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Debug\net9.0\ref\RestauranteApp.dll
-D:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Debug\net9.0\compressed\5bwq8wmpgb-fokb4j0qc9.gz
-D:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Debug\net9.0\compressed\lpw1p42o6j-fvrzpgqr6q.gz
+D:\Zalim Cursos\Zalim Unan 2025\Monografia\RestauranteApp\RestauranteApp\obj\Debug\net9.0\compressed\z6spo0zthg-cqil927vv8.gz

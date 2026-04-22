@@ -202,6 +202,11 @@ namespace RestauranteApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Asegurar que el estado tenga un valor por defecto si no se especifica
+                if (string.IsNullOrEmpty(mesa.Estado))
+                {
+                    mesa.Estado = "Disponible";
+                }
                 _context.Add(mesa);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
