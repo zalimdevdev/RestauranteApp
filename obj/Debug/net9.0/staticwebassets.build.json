@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Y6kuxSPFHsAZndqyxnTpEhIXD9+gY5/O9s3gcn/tpCs=",
+  "Hash": "AvwDn1juO8DpsgIfCh6PTLNldHU0h2NISM9TkXoIdDQ=",
   "Source": "RestauranteApp",
   "BasePath": "_content/RestauranteApp",
   "Mode": "Default",
@@ -4068,27 +4068,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
-    },
-    {
-      "Identity": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\items\\0c4214f1-3ac8-415f-9895-a4521b6a5867_g80.jpg",
-      "SourceId": "RestauranteApp",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\",
-      "BasePath": "_content/RestauranteApp",
-      "RelativePath": "images/items/0c4214f1-3ac8-415f-9895-a4521b6a5867_g80#[.{fingerprint}]?.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "wqyk8omdjq",
-      "Integrity": "6PRaGStJWVJ4DE5CquVLUQFd8yLbqxx+8pcqJ4+TDkM=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\items\\0c4214f1-3ac8-415f-9895-a4521b6a5867_g80.jpg"
     },
     {
       "Identity": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\items\\26a4221b-7202-4ffb-ae8e-1c5529b2440a_Copilot_20251109_153219.png",
@@ -14812,88 +14791,6 @@
         {
           "Name": "integrity",
           "Value": "sha256-JKWeHUaANNuffeRatdc54UCb84RoxjEw/nTq8Mops8Y="
-        }
-      ]
-    },
-    {
-      "Route": "images/items/0c4214f1-3ac8-415f-9895-a4521b6a5867_g80.jpg",
-      "AssetFile": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\items\\0c4214f1-3ac8-415f-9895-a4521b6a5867_g80.jpg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "38301"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"6PRaGStJWVJ4DE5CquVLUQFd8yLbqxx+8pcqJ4+TDkM=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 06 Apr 2026 02:09:33 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-6PRaGStJWVJ4DE5CquVLUQFd8yLbqxx+8pcqJ4+TDkM="
-        }
-      ]
-    },
-    {
-      "Route": "images/items/0c4214f1-3ac8-415f-9895-a4521b6a5867_g80.wqyk8omdjq.jpg",
-      "AssetFile": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\items\\0c4214f1-3ac8-415f-9895-a4521b6a5867_g80.jpg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "38301"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"6PRaGStJWVJ4DE5CquVLUQFd8yLbqxx+8pcqJ4+TDkM=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 06 Apr 2026 02:09:33 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "wqyk8omdjq"
-        },
-        {
-          "Name": "label",
-          "Value": "images/items/0c4214f1-3ac8-415f-9895-a4521b6a5867_g80.jpg"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-6PRaGStJWVJ4DE5CquVLUQFd8yLbqxx+8pcqJ4+TDkM="
         }
       ]
     },

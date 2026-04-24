@@ -63,14 +63,17 @@
 </head>
 <body>
     <div class="header">
-        <h1>@(datosNegocio?.Nombre ?? "Restaurante")</h1>
-        <p>@(datosNegocio?.DireccionNegocio ?? "")</p>
-        <p>Tel: @(datosNegocio?.Telefono ?? "") | RUC: @(datosNegocio?.Ruc ?? "")</p>
-        <h2>Factura de Venta</h2>
+       
     </div>
 
     <div class="info-section">
         <div class="info-left">
+
+
+         <h1>@(datosNegocio?.Nombre ?? "Restaurante")</h1>
+        <p>@(datosNegocio?.DireccionNegocio ?? "")</p>
+        <p>Tel: @(datosNegocio?.Telefono ?? "") | RUC: @(datosNegocio?.Ruc ?? "")</p>
+        <h2>Factura de Venta</h2>
             <p><strong>Número de Factura:</strong> @Model.FacturaId</p>
             <p><strong>Fecha:</strong> @Model.FechaPago.ToString("dd/MM/yyyy HH:mm")</p>
             <p><strong>Método de Pago:</strong> @Model.MetodoPago</p>

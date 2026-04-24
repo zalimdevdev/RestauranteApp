@@ -34,58 +34,8 @@
     }
 
     <!-- Sección de creación de roles -->
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0"><i class="fas fa-plus-circle"></i> Crear Nuevo Rol</h5>
-                </div>
-                <div class="card-body">
-                    <form asp-controller="UserRol" asp-action="AddRol" method="post">
-                        <div class="input-group">
-                            <input type="text" name="rolName" class="form-control" placeholder="Nombre del rol" required />
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-plus"></i> Crear Rol
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0"><i class="fas fa-user-tag"></i> Asignar Rol a Usuario</h5>
-                </div>
-                <div class="card-body">
-                    <form asp-controller="UserRol" asp-action="AddUserRol" method="post">
-                        <div class="row">
-                            <div class="col-md-5 mb-2">
-                                <select name="UserId" class="form-select" required>
-                                    <option value="">Seleccionar Usuario</option>
-                                    @foreach (var usuario in Model.Usuarios)
-                                    {
-                                        <option value="@usuario.UserId">@usuario.UserName (@usuario.Email)</option>
-                                    }
-                                </select>
-                            </div>
-                            <div class="col-md-5 mb-2">
-                                <select name="RoleId" class="form-select" asp-items="@Model.Roles" required>
-                                    <option value="">Seleccionar Rol</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2 mb-2">
-                                <button type="submit" class="btn btn-info text-white w-100">
-                                    <i class="fas fa-link"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
+<hr>
     <!-- Tabla de usuarios -->
     <div class="row">
         <div class="col-12">

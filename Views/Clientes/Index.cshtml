@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Registro de clientes</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Crear nuevo Cliente</a>
 </p>
 <table class="neo-table">
     <thead>
@@ -62,9 +62,11 @@
 
 
             <td>
+             <div class="btn-group" role="group">
                 <a asp-action="Edit" asp-route-id="@item.ClienteId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ClienteId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.ClienteId">Delete</a>
+            </div>
             </td>
         </tr>
 }

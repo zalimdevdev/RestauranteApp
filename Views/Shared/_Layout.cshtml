@@ -39,7 +39,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index" >Home</a>
                         </li>
                         <!-- Punto de entrada al POS -->
-
+@if (User.IsInRole("ADMIN") || User.IsInRole("CAJERO")){
     <!-- OPERACIÓN -->
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown">
@@ -47,17 +47,21 @@
         </a>
       
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" asp-controller="Mesas">Mesas</a></li>
+            <li><a class="dropdown-item" asp-controller="Mesas" asp-action="Index">Mesas</a></li>
           
             <li><a class="dropdown-item" asp-controller="Mesas" asp-action="GestionVentaMesa" asp-action="Index">Gestión de Mesas</a></li>
           
             <li><a class="dropdown-item" asp-controller="ItemsMenu" asp-action="Index">Menú</a></li>
             <li><a class="dropdown-item" asp-controller="ItemsMenu"  asp-action="Create"  >+ Nuevo Platillo</a></li>
          
-            <li><a class="dropdown-item" asp-controller="CategoriaMenus">Categorías</a></li>
+            <li><a class="dropdown-item" asp-controller="CategoriaMenus" asp-action="Index">Categorías</a></li>
             <li><a class="dropdown-item" asp-controller="CategoriaMenus" asp-action="Create">+ Nueva Categoria</a></li>
         </ul>
     </li>
+}
+
+
+@if (User.IsInRole("ADMIN") || User.IsInRole("CAJERO")){
 
     <!-- VENTAS -->
     <li class="nav-item dropdown">
@@ -65,11 +69,17 @@
              Ventas
         </a>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" asp-controller="Facturas">Facturas</a></li>
-            <li><a class="dropdown-item" asp-controller="Clientes">Clientes</a></li>
+            <li><a class="dropdown-item" asp-controller="Facturas" asp-action="Index">Facturas</a></li>
+            <li><a class="dropdown-item" asp-controller="Clientes" asp-action="Index">Clientes</a></li>
              <li><a class="dropdown-item" asp-controller="Clientes" asp-action="Create" >+ Nuevo Cliente</a></li>
         </ul>
     </li>
+
+}
+
+
+
+@if (User.IsInRole("ADMIN")){
 
     <!-- ADMINISTRACIÓN -->
     <li class="nav-item dropdown">
@@ -77,35 +87,49 @@
              Administración
         </a>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" asp-controller="Empleados">Empleados</a></li>
+            <li><a class="dropdown-item" asp-controller="Empleados" asp-action="Index">Empleados</a></li>
             <li><a class="dropdown-item" asp-controller="Empleados" asp-action="Create">+ Nuevo Empleado</a></li>
-            <li><a class="dropdown-item" asp-controller="Gastos">Gastos</a></li>
+            <li><a class="dropdown-item" asp-controller="Gastos" asp-action="Index">Gastos</a></li>
             <li><a class="dropdown-item" asp-controller="Gastos" asp-action="Create">+ Nuevo Gasto</a></li>
         </ul>
     </li>
+}
 
+
+@if (User.IsInRole("ADMIN")){
     <!-- ANÁLISIS -->
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-controller="Estadisticas">
+        <a class="nav-link text-dark" asp-controller="Estadisticas" asp-action="Index">
              Estadísticas
         </a>
     </li>
 
+
+
+}
+
+
+
+@if (User.IsInRole("ADMIN")){
     <!-- SISTEMA -->
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown">
             ⚙️ Sistema
         </a>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" asp-controller="UserRol">Usuarios y Roles</a></li>
+            <li><a class="dropdown-item" asp-controller="UserRol" asp-action="Index">Usuarios y Roles</a></li>
                <hr>
-            <li><a class="dropdown-item" asp-controller="Backups">Backups</a></li>
+            <li><a class="dropdown-item" asp-controller="Backups" asp-action="Index">Backups</a></li>
 
 
 
 
         </ul>
     </li>
+
+}
+
+
 
 </div>
 

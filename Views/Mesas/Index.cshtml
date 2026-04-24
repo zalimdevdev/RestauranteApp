@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Mesas existentes</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn">Nueva Mesa</a>
 </p>
 <table class="neo-table">
     <thead>
@@ -37,9 +37,12 @@
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.MesaId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MesaId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MesaId">Delete</a>
+
+             <div class="btn-group" role="group">
+                <a type="button" class="btn" asp-action="Edit" asp-route-id="@item.MesaId">Edit</a>
+                <a type="button" class="btn" asp-action="Details" asp-route-id="@item.MesaId">Details</a>
+                <a type="button" class="btn" asp-action="Delete" asp-route-id="@item.MesaId">Delete</a>
+            </div>
             </td>
         </tr>
 }
