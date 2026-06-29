@@ -145,7 +145,7 @@ public class BackupService
                 NombreIngrediente = i.NombreIngrediente,
                 CantidadStock = i.CantidadStock,
                 UnidadMedida = i.UnidadMedida,
-                ProveedorId = i.ProveedorId
+         //       ProveedorId = i.ProveedorId
             }).ToListAsync(),
             DatosNegocios = await _context.DatosNegocios.Select(dn => new DatosNegocioDto
             {
@@ -258,7 +258,7 @@ public class BackupService
                     NombreIngrediente = i.NombreIngrediente,
                     CantidadStock = i.CantidadStock,
                     UnidadMedida = i.UnidadMedida,
-                    ProveedorId = i.ProveedorId
+                  //  ProveedorId = i.ProveedorId
                 }).ToListAsync();
                 backupData.Proveedores = await _context.Proveedores.Select(p => new ProveedorDto
                 {
@@ -613,7 +613,7 @@ public class BackupService
                     NombreIngrediente = d.NombreIngrediente ?? "",
                     CantidadStock = d.CantidadStock,
                     UnidadMedida = d.UnidadMedida ?? "",
-                    ProveedorId = d.ProveedorId
+                 //   ProveedorId = d.ProveedorId
                 }).ToList();
                 _context.Ingredientes.AddRange(ingredientes);
                 await _context.SaveChangesAsync();

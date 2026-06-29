@@ -39,7 +39,8 @@
 
             <div class="form-group">
                 <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
+                <select asp-for="Estado" class="form-control" asp-items="@(new SelectList(new List<string> { "Activo", "Inactivo" }))">
+                </select>
                 <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
 

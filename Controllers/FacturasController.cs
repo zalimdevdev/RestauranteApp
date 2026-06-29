@@ -425,9 +425,31 @@ namespace RestauranteApp.Controllers
 
             // Obtener datos del negocio para el PDF
             var datosNegocio = await _context.DatosNegocios.FirstOrDefaultAsync();
-            ViewBag.DatosNegocio = datosNegocio;
+            
+            // Si no hay datos del negocio, crear uno por defecto con los valores sembrados
+            if (datosNegocio == null)
+            {
+                datosNegocio = new DatosNegocio
+                {
+                    Nombre = "Restaurante",
+                    Telefono = "",
+                    Ruc = "",
+                    DireccionNegocio = ""
+                };
+            }
 
-            return new ViewAsPdf("FacturaPdf", factura);
+            // Crear ViewModel con todos los datos necesarios
+            var viewModel = new FacturaPdfViewModel
+            {
+                Factura = factura,
+                DatosNegocio = datosNegocio
+            };
+
+            return new ViewAsPdf("FacturaPdf", viewModel)
+            {
+                PageSize = Rotativa.AspNetCore.Options.Size.A4,
+                PageMargins = new Rotativa.AspNetCore.Options.Margins(10, 10, 10, 10)
+            };
         }
 
         private bool FacturaExists(int id)

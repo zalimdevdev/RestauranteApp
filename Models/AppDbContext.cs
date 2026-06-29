@@ -22,6 +22,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
     public DbSet<Gasto> Gastos { get; set; }
     public DbSet<Proveedor> Proveedores { get; set; }
     public DbSet<Ingrediente> Ingredientes { get; set; }
+    public DbSet<ItemMenuIngrediente> ItemMenuIngredientes { get; set; }
     public DbSet<DetalleFactura> DetalleFacturas { get; set; }
     public DbSet<DatosNegocio> DatosNegocios { get; set; }
     public DbSet<BackupRegistro> BackupRegistros { get; set; }
@@ -42,17 +43,33 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
             }
         );
 
-    modelBuilder.Entity<DetalleFactura>()
-        .HasOne(d => d.Factura)
-        .WithMany(f => f.DetalleFacturas)
-        .HasForeignKey(d => d.FacturaId)
-        .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<DetalleFactura>()
+            .HasOne(d => d.Factura)
+            .WithMany(f => f.DetalleFacturas)
+            .HasForeignKey(d => d.FacturaId)
+            .OnDelete(DeleteBehavior.Cascade);
 
-    modelBuilder.Entity<DetalleFactura>()
-        .Property(p => p.PrecioUnitario).HasPrecision(18, 2);
-    modelBuilder.Entity<DetalleFactura>()
-        .Property(p => p.Subtotal).HasPrecision(18, 2);
-    modelBuilder.Entity<Factura>()
-        .Property(p => p.MontoTotal).HasPrecision(18, 2);
+        modelBuilder.Entity<DetalleFactura>()
+            .Property(p => p.PrecioUnitario).HasPrecision(18, 2);
+        modelBuilder.Entity<DetalleFactura>()
+            .Property(p => p.Subtotal).HasPrecision(18, 2);
+        modelBuilder.Entity<Factura>()
+            .Property(p => p.MontoTotal).HasPrecision(18, 2);
+
+        // Configuración de ItemMenuIngrediente
+        modelBuilder.Entity<ItemMenuIngrediente>()
+            .HasOne(imi => imi.ItemMenu)
+            .WithMany(im => im.ItemMenuIngredientes)
+            .HasForeignKey(imi => imi.ItemMenuId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<ItemMenuIngrediente>()
+            .HasOne(imi => imi.Ingrediente)
+            .WithMany()
+            .HasForeignKey(imi => imi.IngredienteId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<ItemMenuIngrediente>()
+            .Property(p => p.Cantidad).HasPrecision(18, 3);
     }
 }

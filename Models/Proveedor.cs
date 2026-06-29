@@ -22,5 +22,4 @@ public class Proveedor
     public string? Email { get; set; }
     
     // Propiedad de navegación
-    public virtual ICollection<Ingrediente> Ingredientes { get; set; } = new List<Ingrediente>();
 }

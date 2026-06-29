@@ -21,7 +21,7 @@ namespace RestauranteApp.Controllers
         // GET: Ingredientes
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Ingredientes.Include(i => i.Proveedor);
+            var appDbContext = _context.Ingredientes;
             return View(await appDbContext.ToListAsync());
         }
 
@@ -34,7 +34,6 @@ namespace RestauranteApp.Controllers
             }
 
             var ingrediente = await _context.Ingredientes
-                .Include(i => i.Proveedor)
                 .FirstOrDefaultAsync(m => m.IngredienteId == id);
             if (ingrediente == null)
             {
@@ -47,7 +46,6 @@ namespace RestauranteApp.Controllers
         // GET: Ingredientes/Create
         public IActionResult Create()
         {
-            ViewData["ProveedorId"] = new SelectList(_context.Proveedores, "ProveedorId", "NombreProveedor");
             return View();
         }
 
@@ -56,7 +54,7 @@ namespace RestauranteApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IngredienteId,NombreIngrediente,CantidadStock,UnidadMedida,ProveedorId")] Ingrediente ingrediente)
+        public async Task<IActionResult> Create([Bind("IngredienteId,NombreIngrediente,CantidadStock,UnidadMedida,Costo,Categoria")] Ingrediente ingrediente)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +62,6 @@ namespace RestauranteApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProveedorId"] = new SelectList(_context.Proveedores, "ProveedorId", "NombreProveedor", ingrediente.ProveedorId);
             return View(ingrediente);
         }
 
@@ -81,7 +78,6 @@ namespace RestauranteApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["ProveedorId"] = new SelectList(_context.Proveedores, "ProveedorId", "NombreProveedor", ingrediente.ProveedorId);
             return View(ingrediente);
         }
 
@@ -90,7 +86,7 @@ namespace RestauranteApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IngredienteId,NombreIngrediente,CantidadStock,UnidadMedida,ProveedorId")] Ingrediente ingrediente)
+        public async Task<IActionResult> Edit(int id, [Bind("IngredienteId,NombreIngrediente,CantidadStock,UnidadMedida,Costo,Categoria")] Ingrediente ingrediente)
         {
             if (id != ingrediente.IngredienteId)
             {
@@ -117,7 +113,6 @@ namespace RestauranteApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProveedorId"] = new SelectList(_context.Proveedores, "ProveedorId", "NombreProveedor", ingrediente.ProveedorId);
             return View(ingrediente);
         }
 
@@ -130,7 +125,6 @@ namespace RestauranteApp.Controllers
             }
 
             var ingrediente = await _context.Ingredientes
-                .Include(i => i.Proveedor)
                 .FirstOrDefaultAsync(m => m.IngredienteId == id);
             if (ingrediente == null)
             {

@@ -19,9 +19,10 @@ public class Ingrediente
     [StringLength(20)]
     public string UnidadMedida { get; set; } // "kg", "litros", "unidades"
 
-    public int? ProveedorId { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal Costo { get; set; } // Costo por unidad de medida
 
-    // Propiedad de navegación
-    [ForeignKey("ProveedorId")]
-    public virtual Proveedor? Proveedor { get; set; }
+    [Required]
+    [StringLength(50)]
+    public string Categoria { get; set; } // Categoría del ingrediente (ej: Verdura, Carne, etc.)
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RestauranteApp.Models;
@@ -11,9 +12,11 @@ using RestauranteApp.Models;
 namespace RestauranteApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260424064216_SeedDatosNegocio")]
+    partial class SeedDatosNegocio
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -557,18 +560,13 @@ namespace RestauranteApp.Migrations
                     b.Property<decimal>("CantidadStock")
                         .HasColumnType("decimal(18, 3)");
 
-                    b.Property<string>("Categoria")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<decimal>("Costo")
-                        .HasColumnType("decimal(18, 2)");
-
                     b.Property<string>("NombreIngrediente")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
+
+                    b.Property<int?>("ProveedorId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("UnidadMedida")
                         .IsRequired()
@@ -576,6 +574,8 @@ namespace RestauranteApp.Migrations
                         .HasColumnType("character varying(20)");
 
                     b.HasKey("IngredienteId");
+
+                    b.HasIndex("ProveedorId");
 
                     b.ToTable("Ingredientes");
                 });
@@ -615,32 +615,6 @@ namespace RestauranteApp.Migrations
                     b.HasIndex("CategoriaId");
 
                     b.ToTable("ItemsMenu");
-                });
-
-            modelBuilder.Entity("RestauranteApp.Models.ItemMenuIngrediente", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Cantidad")
-                        .HasColumnType("decimal(18, 3)");
-
-                    b.Property<int>("IngredienteId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ItemMenuId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IngredienteId");
-
-                    b.HasIndex("ItemMenuId");
-
-                    b.ToTable("ItemMenuIngredientes");
                 });
 
             modelBuilder.Entity("RestauranteApp.Models.Mesa", b =>
@@ -866,6 +840,15 @@ namespace RestauranteApp.Migrations
                     b.Navigation("Mesa");
                 });
 
+            modelBuilder.Entity("RestauranteApp.Models.Ingrediente", b =>
+                {
+                    b.HasOne("RestauranteApp.Models.Proveedor", "Proveedor")
+                        .WithMany("Ingredientes")
+                        .HasForeignKey("ProveedorId");
+
+                    b.Navigation("Proveedor");
+                });
+
             modelBuilder.Entity("RestauranteApp.Models.ItemMenu", b =>
                 {
                     b.HasOne("RestauranteApp.Models.CategoriaMenu", "CategoriaMenu")
@@ -875,25 +858,6 @@ namespace RestauranteApp.Migrations
                         .IsRequired();
 
                     b.Navigation("CategoriaMenu");
-                });
-
-            modelBuilder.Entity("RestauranteApp.Models.ItemMenuIngrediente", b =>
-                {
-                    b.HasOne("RestauranteApp.Models.Ingrediente", "Ingrediente")
-                        .WithMany()
-                        .HasForeignKey("IngredienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RestauranteApp.Models.ItemMenu", "ItemMenu")
-                        .WithMany("ItemMenuIngredientes")
-                        .HasForeignKey("ItemMenuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ingrediente");
-
-                    b.Navigation("ItemMenu");
                 });
 
             modelBuilder.Entity("RestauranteApp.Models.Pedido", b =>
@@ -959,8 +923,6 @@ namespace RestauranteApp.Migrations
             modelBuilder.Entity("RestauranteApp.Models.ItemMenu", b =>
                 {
                     b.Navigation("DetallesPedido");
-
-                    b.Navigation("ItemMenuIngredientes");
                 });
 
             modelBuilder.Entity("RestauranteApp.Models.Mesa", b =>
@@ -973,6 +935,11 @@ namespace RestauranteApp.Migrations
             modelBuilder.Entity("RestauranteApp.Models.Pedido", b =>
                 {
                     b.Navigation("DetallesPedido");
+                });
+
+            modelBuilder.Entity("RestauranteApp.Models.Proveedor", b =>
+                {
+                    b.Navigation("Ingredientes");
                 });
 #pragma warning restore 612, 618
         }

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using RestauranteApp.Models;
 
 namespace RestauranteApp.Controllers
@@ -16,11 +17,13 @@ namespace RestauranteApp.Controllers
     {
         private readonly AppDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly ILogger<ItemsMenuController> _logger;
 
-        public ItemsMenuController(AppDbContext context, IWebHostEnvironment webHostEnvironment)
+        public ItemsMenuController(AppDbContext context, IWebHostEnvironment webHostEnvironment, ILogger<ItemsMenuController> logger)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
+            _logger = logger;
         }
 
         // GET: ItemsMenu
@@ -52,7 +55,11 @@ namespace RestauranteApp.Controllers
         // GET: ItemsMenu/Create
         public IActionResult Create()
         {
-            ViewData["CategoriaId"] = new SelectList(_context.CategoriasMenu, "CategoriaId", "NombreCategoria");
+            ViewBag.CategoriaId = new SelectList(_context.CategoriasMenu, "CategoriaId", "NombreCategoria");
+            ViewData["Ingredientes"] = _context.Ingredientes
+                .OrderBy(i => i.NombreIngrediente)
+                .ToList();
+
             return View();
         }
 
@@ -61,31 +68,102 @@ namespace RestauranteApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ItemId,NombreItem,Descripcion,Precio,CategoriaId,Estado")] ItemMenu itemMenu, IFormFile? imagenFile)
+        public async Task<IActionResult> Create([Bind("ItemId,NombreItem,Descripcion,Precio,CategoriaId,Estado,ItemMenuIngredientes")] ItemMenu itemMenu, IFormFile? imagenFile)
         {
+            _logger.LogInformation("=== CREATE POST START ===");
+            _logger.LogInformation("ModelState.IsValid: {IsValid}", ModelState.IsValid);
+            _logger.LogInformation("ItemMenu received: NombreItem={NombreItem}, Precio={Precio}, CategoriaId={CategoriaId}, Estado={Estado}",
+                itemMenu.NombreItem, itemMenu.Precio, itemMenu.CategoriaId, itemMenu.Estado);
+            
+            if (itemMenu.ItemMenuIngredientes != null)
+            {
+                _logger.LogInformation("ItemMenuIngredientes count: {Count}", itemMenu.ItemMenuIngredientes.Count);
+                foreach (var ing in itemMenu.ItemMenuIngredientes)
+                {
+                    _logger.LogInformation("  Ingrediente: IngredienteId={IngredienteId}, Cantidad={Cantidad}, ItemMenuId={ItemMenuId}",
+                        ing.IngredienteId, ing.Cantidad, ing.ItemMenuId);
+                }
+            }
+            else
+            {
+                _logger.LogWarning("ItemMenuIngredientes is NULL");
+            }
+
+            // Log ModelState errors if any
+            if (!ModelState.IsValid)
+            {
+                foreach (var error in ModelState)
+                {
+                    foreach (var err in error.Value.Errors)
+                    {
+                        _logger.LogError("ModelState Error - Key: {Key}, Error: {Error}", error.Key, err.ErrorMessage);
+                    }
+                }
+            }
+
             if (ModelState.IsValid)
             {
-                if (imagenFile != null && imagenFile.Length > 0)
+                try
                 {
-                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "items");
-                    Directory.CreateDirectory(uploadsFolder);
-
-                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + imagenFile.FileName;
-                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    if (imagenFile != null && imagenFile.Length > 0)
                     {
-                        await imagenFile.CopyToAsync(fileStream);
+                        string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "items");
+                        Directory.CreateDirectory(uploadsFolder);
+
+                        string uniqueFileName = Guid.NewGuid().ToString() + "_" + imagenFile.FileName;
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await imagenFile.CopyToAsync(fileStream);
+                        }
+
+                        itemMenu.ImagenUrl = "/images/items/" + uniqueFileName;
+                        _logger.LogInformation("Image saved: {ImageUrl}", itemMenu.ImagenUrl);
                     }
 
-                    itemMenu.ImagenUrl = "/images/items/" + uniqueFileName;
-                }
+                    if (itemMenu.ItemMenuIngredientes != null)
+                    {
+                        itemMenu.ItemMenuIngredientes = itemMenu.ItemMenuIngredientes
+                            .Where(i => i.IngredienteId > 0 && i.Cantidad > 0)
+                            .ToList();
 
-                _context.Add(itemMenu);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                        foreach (var itemIngrediente in itemMenu.ItemMenuIngredientes)
+                        {
+                            itemIngrediente.ItemMenu = null;
+                            itemIngrediente.Ingrediente = null;
+                            _logger.LogInformation("Adding ingredient: IngredienteId={IngredienteId}, Cantidad={Cantidad}",
+                                itemIngrediente.IngredienteId, itemIngrediente.Cantidad);
+                        }
+                    }
+
+                    _logger.LogInformation("Adding ItemMenu to context...");
+                    _context.Add(itemMenu);
+                    
+                    _logger.LogInformation("Calling SaveChangesAsync...");
+                    await _context.SaveChangesAsync();
+                    _logger.LogInformation("SaveChangesAsync completed. ItemId: {ItemId}", itemMenu.ItemId);
+                    
+                    TempData["SuccessMessage"] = "¡Item de menú guardado exitosamente!";
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error saving ItemMenu: {Message}", ex.Message);
+                    if (ex.InnerException != null)
+                    {
+                        _logger.LogError(ex.InnerException, "Inner exception: {Message}", ex.InnerException.Message);
+                    }
+                    ModelState.AddModelError("", $"Error al guardar: {ex.Message}");
+                }
             }
-            ViewData["CategoriaId"] = new SelectList(_context.CategoriasMenu, "CategoriaId", "NombreCategoria", itemMenu.CategoriaId);
+
+            ViewBag.CategoriaId = new SelectList(_context.CategoriasMenu, "CategoriaId", "NombreCategoria", itemMenu.CategoriaId);
+            ViewData["Ingredientes"] = _context.Ingredientes
+                .OrderBy(i => i.NombreIngrediente)
+                .ToList();
+
+            _logger.LogInformation("=== CREATE POST END (returning view) ===");
             return View(itemMenu);
         }
 

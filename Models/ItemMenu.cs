@@ -30,4 +30,5 @@ public class ItemMenu
     [ForeignKey("CategoriaId")]
     public virtual CategoriaMenu? CategoriaMenu { get; set; }
     public virtual ICollection<DetallePedido> DetallesPedido { get; set; } = new List<DetallePedido>();
+    public virtual ICollection<ItemMenuIngrediente> ItemMenuIngredientes { get; set; } = new List<ItemMenuIngrediente>();
 }

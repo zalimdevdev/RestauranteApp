@@ -1,8 +1,10 @@
-@model RestauranteApp.Models.Factura
+@model RestauranteApp.ViewModels.FacturaPdfViewModel
 
 @{
+    Layout = null;
     ViewData["Title"] = "Factura";
-    var datosNegocio = ViewBag.DatosNegocio as RestauranteApp.Models.DatosNegocio;
+    var factura = Model.Factura;
+    var datosNegocio = Model.DatosNegocio;
 }
 
 <!DOCTYPE html>
@@ -68,19 +70,17 @@
 
     <div class="info-section">
         <div class="info-left">
-
-
-         <h1>@(datosNegocio?.Nombre ?? "Restaurante")</h1>
-        <p>@(datosNegocio?.DireccionNegocio ?? "")</p>
-        <p>Tel: @(datosNegocio?.Telefono ?? "") | RUC: @(datosNegocio?.Ruc ?? "")</p>
+         <h1>@datosNegocio.Nombre</h1>
+        <p>@datosNegocio.DireccionNegocio</p>
+        <p>Tel: @datosNegocio.Telefono | RUC: @datosNegocio.Ruc</p>
         <h2>Factura de Venta</h2>
-            <p><strong>Número de Factura:</strong> @Model.FacturaId</p>
-            <p><strong>Fecha:</strong> @Model.FechaPago.ToString("dd/MM/yyyy HH:mm")</p>
-            <p><strong>Método de Pago:</strong> @Model.MetodoPago</p>
+            <p><strong>Número de Factura:</strong> @factura.FacturaId</p>
+            <p><strong>Fecha:</strong> @factura.FechaPago.ToString("dd/MM/yyyy HH:mm")</p>
+            <p><strong>Método de Pago:</strong> @factura.MetodoPago</p>
         </div>
         <div class="info-right">
-            <p><strong>Cliente:</strong> @(Model.Cliente != null ? $"{Model.Cliente.Nombre} {Model.Cliente.Apellido}" : "Consumidor Final")</p>
-            <p><strong>Mesa:</strong> @(Model.Mesa?.NumeroMesa.ToString() ?? "N/A")</p>
+            <p><strong>Cliente:</strong> @(factura.Cliente != null ? $"{factura.Cliente.Nombre} {factura.Cliente.Apellido}" : "Consumidor Final")</p>
+            <p><strong>Mesa:</strong> @(factura.Mesa?.NumeroMesa.ToString() ?? "N/A")</p>
         </div>
     </div>
 
@@ -94,7 +94,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var detalle in Model.DetalleFacturas)
+            @foreach (var detalle in factura.DetalleFacturas)
             {
                 <tr>
                     <td>@detalle.Cantidad</td>
@@ -107,7 +107,7 @@
     </table>
 
     <div class="totales">
-        <p><strong>Total a Pagar: @Model.MontoTotal.ToString("C")</strong></p>
+        <p><strong>Total a Pagar: @factura.MontoTotal.ToString("C")</strong></p>
     </div>
 
     <div class="footer">
