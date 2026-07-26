@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RestauranteApp.Models;
-using RestauranteApp.ViewModels; // <- ViewModel
+using RestauranteApp.Services;
+using RestauranteApp.ViewModels;
 using Rotativa.AspNetCore;
 
 namespace RestauranteApp.Controllers
@@ -14,10 +15,12 @@ namespace RestauranteApp.Controllers
     public class FacturasController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IStockService _stockService;
 
-        public FacturasController(AppDbContext context)
+        public FacturasController(AppDbContext context, IStockService stockService)
         {
             _context = context;
+            _stockService = stockService;
         }
 
         // GET: Facturas
@@ -178,6 +181,94 @@ namespace RestauranteApp.Controllers
             // asignar facturaId a cada detalle y guardar
             foreach (var det in detalles) det.FacturaId = factura.FacturaId;
             _context.DetalleFacturas.AddRange(detalles);
+            await _context.SaveChangesAsync();
+
+            // REDUCIR STOCK DE INGREDIENTES
+            // Obtener los ingredientes necesarios para cada item vendido
+            var itemIds = detalles.Select(d => d.ItemId).ToList();
+            var itemIngredientes = await _context.ItemMenuIngredientes
+                .Include(ii => ii.Ingrediente)
+                .Where(ii => itemIds.Contains(ii.ItemMenuId))
+                .ToListAsync();
+
+            // Agrupar por ingrediente y sumar las cantidades necesarias
+            var ingredientesNecesarios = itemIngredientes
+                .GroupBy(ii => ii.IngredienteId)
+                .Select(g => new
+                {
+                    IngredienteId = g.Key,
+                    CantidadTotal = g.Sum(ii => ii.Cantidad * detalles.First(d => d.ItemId == g.First().ItemMenuId).Cantidad)
+                })
+                .ToList();
+
+            // Calcular correctamente la cantidad total por ingrediente
+            var ingredientesStock = new Dictionary<int, decimal>();
+            foreach (var detalle in detalles)
+            {
+                var ingredientesDelItem = itemIngredientes.Where(ii => ii.ItemMenuId == detalle.ItemId);
+                foreach (var ii in ingredientesDelItem)
+                {
+                    if (!ingredientesStock.ContainsKey(ii.IngredienteId))
+                    {
+                        ingredientesStock[ii.IngredienteId] = 0;
+                    }
+                    ingredientesStock[ii.IngredienteId] += ii.Cantidad * detalle.Cantidad;
+                }
+            }
+
+            // Reducir el stock de cada ingrediente
+            foreach (var kvp in ingredientesStock)
+            {
+                var ingredienteId = kvp.Key;
+                var cantidadNecesaria = kvp.Value;
+
+                var ingrediente = await _context.Ingredientes.FindAsync(ingredienteId);
+                if (ingrediente != null)
+                {
+                    if (ingrediente.CantidadStock < cantidadNecesaria)
+                    {
+                        // Stock insuficiente - revertir la operación
+                        ModelState.AddModelError(string.Empty, 
+                            $"Stock insuficiente de {ingrediente.NombreIngrediente}. Necesario: {cantidadNecesaria} {ingrediente.UnidadMedida}, Disponible: {ingrediente.CantidadStock} {ingrediente.UnidadMedida}");
+                        
+                        // Eliminar la factura y sus detalles
+                        _context.DetalleFacturas.RemoveRange(factura.DetalleFacturas);
+                        _context.Facturas.Remove(factura);
+                        await _context.SaveChangesAsync();
+                        
+                        // Rehidratar listas
+                        var itemsRe = await _context.ItemsMenu
+                            .Where(i => i.Estado == "Activo")
+                            .Select(i => new { i.ItemId, i.NombreItem, i.Precio })
+                            .ToListAsync();
+
+                        vm.Items = itemsRe.Select(i => new SelectListItem { Value = i.ItemId.ToString(), Text = i.NombreItem });
+                        vm.ItemPrecios = itemsRe.ToDictionary(i => i.ItemId, i => i.Precio);
+                        vm.Clientes = await _context.Clientes
+                            .Select(c => new SelectListItem { Value = c.ClienteId.ToString(), Text = (c.Nombre ?? "") + " " + (c.Apellido ?? "") })
+                            .ToListAsync();
+                        vm.Mesas = await _context.Mesas
+                            .Select(m => new SelectListItem { Value = m.MesaId.ToString(), Text = m.NumeroMesa.ToString() })
+                            .ToListAsync();
+
+                        return View(vm);
+                    }
+
+                    ingrediente.CantidadStock -= cantidadNecesaria;
+                    
+                    // Registrar movimiento de salida
+                    var movimiento = new MovimientoStock
+                    {
+                        IngredienteId = ingredienteId,
+                        Tipo = "Salida",
+                        Cantidad = cantidadNecesaria,
+                        FacturaId = factura.FacturaId,
+                        Observacion = $"Salida por venta Factura #{factura.FacturaId}"
+                    };
+                    _context.MovimientosStock.Add(movimiento);
+                }
+            }
+
             await _context.SaveChangesAsync();
 
             // Retornar JSON con el ID de la factura para AJAX

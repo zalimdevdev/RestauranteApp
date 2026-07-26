@@ -25,4 +25,18 @@ public class Ingrediente
     [Required]
     [StringLength(50)]
     public string Categoria { get; set; } // Categoría del ingrediente (ej: Verdura, Carne, etc.)
+
+    /// <summary>
+    /// Stock inicial del ingrediente al momento de crearlo
+    /// </summary>
+    [Column(TypeName = "decimal(18, 3)")]
+    public decimal StockInicial { get; set; } = 0m;
+
+    /// <summary>
+    /// Fecha del stock inicial
+    /// </summary>
+    public DateTime? FechaStockInicial { get; set; }
+
+    // Propiedades de navegación
+    public virtual ICollection<MovimientoStock> MovimientosStock { get; set; } = new List<MovimientoStock>();
 }

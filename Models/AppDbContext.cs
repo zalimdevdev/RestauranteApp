@@ -26,6 +26,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
     public DbSet<DetalleFactura> DetalleFacturas { get; set; }
     public DbSet<DatosNegocio> DatosNegocios { get; set; }
     public DbSet<BackupRegistro> BackupRegistros { get; set; }
+    public DbSet<MovimientoStock> MovimientosStock { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -70,6 +71,28 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<ItemMenuIngrediente>()
+            .Property(p => p.Cantidad).HasPrecision(18, 3);
+
+        // Configuración de MovimientoStock
+        modelBuilder.Entity<MovimientoStock>()
+            .HasOne(m => m.Ingrediente)
+            .WithMany(i => i.MovimientosStock)
+            .HasForeignKey(m => m.IngredienteId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<MovimientoStock>()
+            .HasOne(m => m.Factura)
+            .WithMany()
+            .HasForeignKey(m => m.FacturaId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        modelBuilder.Entity<MovimientoStock>()
+            .HasOne(m => m.DetalleFactura)
+            .WithMany()
+            .HasForeignKey(m => m.DetalleFacturaId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        modelBuilder.Entity<MovimientoStock>()
             .Property(p => p.Cantidad).HasPrecision(18, 3);
     }
 }

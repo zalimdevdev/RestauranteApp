@@ -1,0 +1,93 @@
+@model RestauranteApp.ViewModels.ReabastecimientoVM
+
+@{
+    ViewData["Title"] = "Reabastecer Ingrediente";
+}
+
+<h1>Reabastecer Ingrediente</h1>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                
+                <div class="form-group">
+                    <label asp-for="IngredienteId" class="control-label"></label>
+                    <select asp-for="IngredienteId" class="form-control" asp-items="ViewBag.Ingredientes">
+                        <option value="">-- Seleccionar Ingrediente --</option>
+                    </select>
+                    <span asp-validation-for="IngredienteId" class="text-danger"></span>
+                </div>
+
+                <div id="ingrediente-info" style="display: none; margin-top: 10px; padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
+                    <h5>Detalles del Ingrediente</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Nombre:</strong> <span id="nombre-ingrediente"></span></p>
+                            <p><strong>Unidad de Medida:</strong> <span id="unidad-medida"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Stock Actual:</strong> <span id="stock-actual"></span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 15px;">
+                    <label asp-for="Cantidad" class="control-label"></label>
+                    <input asp-for="Cantidad" class="form-control" step="0.001" />
+                    <span asp-validation-for="Cantidad" class="text-danger"></span>
+                </div>
+
+                <div class="form-group" style="margin-top: 15px;">
+                    <label asp-for="Fecha" class="control-label"></label>
+                    <input asp-for="Fecha" class="form-control" type="date" />
+                    <span asp-validation-for="Fecha" class="text-danger"></span>
+                </div>
+
+                <div class="form-group" style="margin-top: 15px;">
+                    <label asp-for="Observacion" class="control-label"></label>
+                    <textarea asp-for="Observacion" class="form-control" rows="3" placeholder="Observaciones (opcional)"></textarea>
+                    <span asp-validation-for="Observacion" class="text-danger"></span>
+                </div>
+
+                <div class="form-group" style="margin-top: 15px;">
+                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        // Datos de ingredientes para mostrar información
+        const ingredientesData = @Html.Raw(Json.Serialize(ViewBag.IngredientesData ?? new List<object>()));
+        
+        document.getElementById('IngredienteId').addEventListener('change', function() {
+            const select = this;
+            const infoDiv = document.getElementById('ingrediente-info');
+            
+            if (select.value) {
+                const selectedOption = select.options[select.selectedIndex];
+                const text = selectedOption.text;
+                
+                // Buscar el ingrediente en los datos
+                const ingrediente = ingredientesData.find(i => i.value == select.value);
+                
+                if (ingrediente) {
+                    document.getElementById('nombre-ingrediente').textContent = ingrediente.nombre;
+                    document.getElementById('unidad-medida').textContent = ingrediente.unidadMedida;
+                    document.getElementById('stock-actual').textContent = ingrediente.cantidadStock + ' ' + ingrediente.unidadMedida;
+                    infoDiv.style.display = 'block';
+                } else {
+                    infoDiv.style.display = 'none';
+                }
+            } else {
+                infoDiv.style.display = 'none';
+            }
+        });
+    </script>
+}

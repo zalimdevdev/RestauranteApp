@@ -24,6 +24,7 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 // Registrar servicios
 builder.Services.AddScoped<BackupService>();
+builder.Services.AddScoped<IStockService, StockService>();
 
 var app = builder.Build();
 

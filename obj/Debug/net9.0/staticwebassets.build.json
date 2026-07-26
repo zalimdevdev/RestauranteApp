@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "AvwDn1juO8DpsgIfCh6PTLNldHU0h2NISM9TkXoIdDQ=",
+  "Hash": "HyiNhljFMp8mplX5POO7hd6Mhfogr8ZIetzTi0sBr8U=",
   "Source": "RestauranteApp",
   "BasePath": "_content/RestauranteApp",
   "Mode": "Default",
@@ -4173,6 +4173,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\items\\78ed543e-5799-4789-a490-ace560baf88f_Copilot_20251109_151934.png"
+    },
+    {
+      "Identity": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\items\\95d36284-6d30-4a5c-9dba-7548fcc8e310_Copilot_20251109_153956.png",
+      "SourceId": "RestauranteApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\",
+      "BasePath": "_content/RestauranteApp",
+      "RelativePath": "images/items/95d36284-6d30-4a5c-9dba-7548fcc8e310_Copilot_20251109_153956#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "tngvmc9o6u",
+      "Integrity": "54OKe9jVEDiNqsSVd0+KGeWXqJZEr7BsmSafC9xdk+M=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\items\\95d36284-6d30-4a5c-9dba-7548fcc8e310_Copilot_20251109_153956.png"
     },
     {
       "Identity": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\logos\\078861cf-7fa9-4010-aae0-422878b3125f_Copilot_20251109_164343.png",
@@ -15201,6 +15222,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-jT4012pZGy6xDouWCDjWKrTadegwMxRC28A2M3DW0R0="
+        }
+      ]
+    },
+    {
+      "Route": "images/items/95d36284-6d30-4a5c-9dba-7548fcc8e310_Copilot_20251109_153956.png",
+      "AssetFile": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\items\\95d36284-6d30-4a5c-9dba-7548fcc8e310_Copilot_20251109_153956.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2226665"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"54OKe9jVEDiNqsSVd0+KGeWXqJZEr7BsmSafC9xdk+M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 12 Jul 2026 01:34:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-54OKe9jVEDiNqsSVd0+KGeWXqJZEr7BsmSafC9xdk+M="
+        }
+      ]
+    },
+    {
+      "Route": "images/items/95d36284-6d30-4a5c-9dba-7548fcc8e310_Copilot_20251109_153956.tngvmc9o6u.png",
+      "AssetFile": "D:\\Zalim Cursos\\Zalim Unan 2025\\Monografia\\RestauranteApp\\RestauranteApp\\wwwroot\\images\\items\\95d36284-6d30-4a5c-9dba-7548fcc8e310_Copilot_20251109_153956.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2226665"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"54OKe9jVEDiNqsSVd0+KGeWXqJZEr7BsmSafC9xdk+M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 12 Jul 2026 01:34:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "tngvmc9o6u"
+        },
+        {
+          "Name": "label",
+          "Value": "images/items/95d36284-6d30-4a5c-9dba-7548fcc8e310_Copilot_20251109_153956.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-54OKe9jVEDiNqsSVd0+KGeWXqJZEr7BsmSafC9xdk+M="
         }
       ]
     },
